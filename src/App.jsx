@@ -34,6 +34,9 @@ import FlowRequest from "./Components/Flow/FlowRequest/FlowRequest";
 import Separation from "./Components/Flow/Separation/Separation";
 import { AttendanceProvider } from "./context/AttendanceContext";
 import AdvanceTab from "./Components/Overview/AdvanceTab/AdvanceTab";
+import TaskBox from "./Components/TaskBox/TaskBox";
+import HRDocuments from "./Components/HRDocuments/HRDocuments";
+import OrgView from "./Components/OrgView/OrgView";
 
 function LayoutApp() {
   const location = useLocation();
@@ -90,6 +93,9 @@ function LayoutApp() {
           <Route path="/Attendance/attendence" element={<Attendence />} />
           <Route path="/Flow/flowRequest" element={<FlowRequest />} />
           <Route path="/Flow/Separation" element={<Separation />} />
+          <Route path="/TaskBox" element={<TaskBox />} />
+          <Route path="/HRDocuments" element={<HRDocuments />} />
+          <Route path="/OrgView" element={<OrgView />} />
         </Routes>
       </div>}
       <Routes>

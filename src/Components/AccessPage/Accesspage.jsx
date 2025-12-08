@@ -12,12 +12,11 @@ const Accesspage = () => {
 
   const navigateFn = (nav) => {
     // setNavigateTopage(nav)
-    console.log("NAV", nav)
     if (nav === "Attendance") {
       navigate("/Attendance/attendence")
     }
     else if (nav === "Performance") {
-      navigate("/Performance")
+      navigate("/Performance/overview")
     }
     else if (nav === "Reimbursement") {
       navigate("/Reimbursement/overview")
@@ -33,6 +32,18 @@ const Accesspage = () => {
     }
     else if (nav === "Time Management") {
       navigate("/Attendance/overview")
+    }
+    else if (nav === "Task Box") {
+      navigate("/TaskBox")
+    }
+    else if (nav === "Employees") {
+      navigate("/profile/Overview")
+    }
+    else if (nav === "HR Documents") {
+      navigate("/HRDocuments")
+    }
+    else if (nav === "Org View") {
+      navigate("/OrgView")
     }
   }
 
