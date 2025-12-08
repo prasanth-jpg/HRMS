@@ -71,7 +71,6 @@ export default function OverView() {
         </div>
       </div>
 
-      {/* ---------- CUSTOMIZE MODAL ---------- */}
       <Modal open={openCustomize} onClose={() => setOpenCustomize(false)}>
         <Box sx={modalStyle}>
           <h3>Customize Dashboard</h3>
@@ -87,7 +86,6 @@ export default function OverView() {
         </Box>
       </Modal>
 
-      {/* ---------- CREATE MODAL ---------- */}
       <Modal open={openCreate} onClose={() => setOpenCreate(false)}>
         <Box sx={modalStyle}>
           <h3>Create Custom Widget</h3>
@@ -102,7 +100,6 @@ export default function OverView() {
         </Box>
       </Modal>
 
-      {/* ---------- VIEW ALL NOTIFICATIONS MODAL ---------- */}
       <Modal open={openNotifications} onClose={() => setOpenNotifications(false)}>
         <Box sx={modalStyle}>
           <h3>Notification History</h3>

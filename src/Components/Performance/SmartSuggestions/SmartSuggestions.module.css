@@ -58,10 +58,34 @@
   font-weight: bold;
 }
 
+.actionOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
 
+.actionModal {
+  background: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  width: 360px;
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* 
 @media screen and (max-width:370px) {
   .SuggestionsToday .ACt {
     
   }
 
-}
+} */

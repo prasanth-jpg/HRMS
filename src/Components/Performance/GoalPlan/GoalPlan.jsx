@@ -19,7 +19,6 @@ export default function GoalPlan() {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
-    // console.log("Update Goal Plan button clicked");
     setOpen(true);
   };
 
