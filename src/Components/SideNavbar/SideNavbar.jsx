@@ -234,7 +234,7 @@ const SideNavbar = () => {
             ) : null}
           </div>
         </Link>
-        <Link to="/Performance">
+        <Link to="/Performance/overview">
           <div className={styles.chevronRightDivContainer}>
             <div
               className={`${styles.chevronRightDiv} ${

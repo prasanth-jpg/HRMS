@@ -62,7 +62,7 @@ function LayoutApp() {
           <Route path="/Attendance/leave" element={<LeaveBalance />} />
           <Route path="/Attendance/Overview" element={<AttendanceOverview />} />
           <Route path="/Interviews" element={<InterviewMainpage />} />
-          <Route path="/Performance" element={<Performance />} />
+          <Route path="/Performance/overview" element={<Performance />} />
           <Route path="/Interviews/candidate" element={<Interviews />} />
           <Route
             path="/Interviews/individualFeedBack"
