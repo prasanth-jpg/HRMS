@@ -38,3 +38,16 @@
   background-color: rgb(233, 233, 233);
   border-radius: 10px;
 }
+.noticount{
+  position: absolute;
+  top: -4px;
+  right: 65px;
+  background-color: red;
+  color: wheat;
+  padding: 2px 4px;
+  border-radius: 50%;
+}
+.profileIconnotifi{
+  position: relative;
+  cursor: pointer;
+}

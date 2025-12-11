@@ -123,6 +123,7 @@ const NavBar = ({ qrlocation }) => {
                 onClick={() => handleNoti()}
               >
                 <img src={notif} alt="notif" />
+                <span className={styles.noticount}>6</span>
               </div>
               <div className={Style.profileicon} onClick={() => handlePro()}>
                 <img src={notif} alt="notif" />
