@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./Confirmation.module.css"
 import download from "../../../assets/download.png";
 import eye from "../../../assets/eye2.png"
@@ -6,6 +6,8 @@ import right from "../../../assets/right.png"
 
 
 export default function Confirmation() {
+    const [hideInfo, setHideInfo] = useState("")
+    const [visible, setVisible]=useState('')
     const tableBodyItems = [
         {
             status: "Completed",
@@ -36,6 +38,12 @@ export default function Confirmation() {
             iconSee: eye
         },
     ]
+
+    const hideInfoFn=(i)=>{
+        const info = tableBodyItems;
+        const infoH = info.find((item,index)=>index === i);
+        setHideInfo(infoH)
+    }
     return (
         <div className={styles.confirmation}>
             <div className={styles.confirmationWork}>Confirmation Workflow</div>
@@ -71,9 +79,9 @@ export default function Confirmation() {
                                         <td>{res.admin}</td>
                                     </div>
                                 </div>
-                                <div>
+                                <div className={styles.statusevenadminbody}>
                                     <td>
-                                        <img src={eye} />
+                                        <img src={eye} onClick={()=>hideInfoFn(i)}/>
                                     </td>
                                     <td className={styles.statusarrow}>
                                         <img src={download} />

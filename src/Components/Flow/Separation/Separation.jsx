@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import group from "../../../assets/groupcopy.png";
 import styles from "./Separation.module.css";
-import InitiateSeparationModal from "./InitiateSeparationModal";
+import InitiateSeparationModal from "../FlowRequest/InitiateSeparationModal";
 
 export default function Separation() {
   const [openModal, setOpenModal] = useState(false);

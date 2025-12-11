@@ -134,12 +134,28 @@ const NavBar = ({ qrlocation }) => {
       </div>
       {showNoti ? (
         <div className={Style.notification}>
+          <div className={styles.notificationtext}>Notifications</div>
           <div className={Style.notificat}>
-            <p>Notification 1</p>
-            <p>Notification 2</p>
-            <p>Notification 3</p>
-            <p>Notification 4</p>
-            <p>Notification 5</p>
+            <div className={styles.notificat1}>
+              <div></div>
+              <p>Payslip released</p>
+            </div>
+            <div className={styles.notificat1}>
+              <div></div>
+              <p>Leave Approved</p>
+            </div>
+            <div className={styles.notificat1}>
+              <div></div>
+              <p>Comp off Approved</p>
+            </div>
+            <div className={styles.notificat1}>
+              <div></div>
+              <p>Performance report</p>
+            </div>
+            <div className={styles.notificat1}>
+              <div></div>
+              <p>MSF Feedback Recived</p>
+            </div>
           </div>
         </div>
       ) : null}

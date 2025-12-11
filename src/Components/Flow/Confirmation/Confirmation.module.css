@@ -97,6 +97,10 @@
   width: 20px;
   height: 20px;
 }
+
+.statusevenadminbody img{
+  cursor: pointer;
+}
 @media (max-width: 720px) {
   .confirmation {
     overflow: scroll;
