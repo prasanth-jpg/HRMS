@@ -71,6 +71,15 @@ const NavBar = ({ qrlocation }) => {
       setShowMenu(false);
     }
   }, [width]);
+
+  const handleclick=(e)=>{
+    console.log(e.target.value);
+    fetch('http://localhost:5000/api/profile/profileGet')
+    .then(res=>res.json())
+    .then(data=>{
+      console.log("fd",data);   
+    })
+  }
   return (
     <div className={Style.container}>
       <div className={Style.navbar}>
@@ -100,7 +109,7 @@ const NavBar = ({ qrlocation }) => {
           <div className={Style.inputsrch}>
             <input
               type="text"
-              placeholder="search by Employee Name, Designation, Department..."
+              placeholder="search by Employee Name, Designation, Department..." onClick={(e)=>handleclick(e)}
             ></input>
             <div className={Style.profileIconSrch}>
               <img src={search} alt="search" />
@@ -122,7 +131,7 @@ const NavBar = ({ qrlocation }) => {
                 className={Style.profileIconnotifi}
                 onClick={() => handleNoti()}
               >
-                <img src={notif} alt="notif" />
+                <img src={notif} alt="notif"/>
                 <span className={styles.noticount}>6</span>
               </div>
               <div className={Style.profileicon} onClick={() => handlePro()}>

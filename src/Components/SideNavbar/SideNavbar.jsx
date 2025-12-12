@@ -26,14 +26,19 @@ const SideNavbar = () => {
   useEffect(() => {
     if (showExtra === "TimeAndAttendance") setActive("overview");
   }, [showExtra]);
+
+  const name= "Gandrath Pranitha";
+  const initial=name.split(" ").map(n=>n[0]).join(" ").toUpperCase();
   return (
     <div className={styles.sidebar}>
       <div className={styles.logo}>
         <div className={styles.userDetails}>
-          <div className={styles.logoCircle}></div>
+          <div className={styles.logoCircle}>
+            {initial}
+          </div>
           <div className={styles.details}>
             <div>
-              <h2>Pranitha</h2>
+              <h2>Gandrath Pranitha</h2>
             </div>
             <div>
               <p>Arin930</p>
