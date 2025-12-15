@@ -5,9 +5,9 @@ import logoaccess from "../../assets/logoaccess.png";
 import menu from "../../assets/menu.png";
 import more from "../../assets/more.png";
 import backbtn from "../../assets/leftarrow.png";
-
+import addicon from "../../assets/addicon.png";
+// import download from '../../assets/download.png'
 import { useNavigate } from "react-router-dom";
-
 import Style from "../AccessPage/Acesspage.module.css";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -177,12 +177,12 @@ const NavBar = ({ qrlocation }) => {
                 <Button variant="contained">VIEW PROFILE</Button>
               </div>
               <div className={styles.MobileQR} onClick={() => handleQr(true)}>
-                <img />
+                <img src={addicon}/>
                 <p>Mobile QR Code</p>
               </div>
               <div className={styles.MobileQR} onClick={() => { navigate("/"); setShowPro(false) }}>
-                <img />
-                <p >Logout</p>
+                <img src={addicon}/>
+                <p>Logout</p>
               </div>
             </div>
           </div>

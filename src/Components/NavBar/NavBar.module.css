@@ -32,8 +32,12 @@
   padding: 10px;
   box-sizing: border-box;
   margin-top: 10px;
+  display: flex;
+  align-items: center;
 }
-
+.MobileQR img{
+  width: 30px;
+}
 .MobileQR:hover {
   background-color: rgb(233, 233, 233);
   border-radius: 10px;
