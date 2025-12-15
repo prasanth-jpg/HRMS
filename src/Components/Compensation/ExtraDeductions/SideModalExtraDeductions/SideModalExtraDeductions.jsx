@@ -10,7 +10,7 @@ export default function SideModalExtraDeductions({ isOpen, onClose }) {
             <div className={`${styles.overlay} ${isOpen ? styles.showOverlay : ""}`} />
             <div className={`${styles.modal} ${isOpen ? styles.slideIn : styles.slideOut}`}>
                 <div className={styles.header}>
-                    <h3>Loans</h3>
+                    <h3>Extra Deductions</h3>
                     <button className={styles.closeBtn} onClick={onClose}> x</button>
                 </div>
                 <div className={styles.content}>

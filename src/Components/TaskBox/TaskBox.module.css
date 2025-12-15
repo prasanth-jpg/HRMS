@@ -1,4 +1,8 @@
 .tastBox{
-    transform: translate(50%, 30%);
-    font-size: 2rem;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: -20%;
 }
