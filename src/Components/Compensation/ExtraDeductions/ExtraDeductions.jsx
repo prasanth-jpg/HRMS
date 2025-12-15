@@ -1,25 +1,22 @@
 import { Button } from "@mui/material";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Clipath from "../../../assets/Clipath.png";
 import styles from "./ExtraDeductions.module.css";
+import SideModalExtraDeductions from "./SideModalExtraDeductions/SideModalExtraDeductions";
 
 export const ExtraDeductions = () => {
-    const [openSelectbtn, setOpenSelectbtn] = useState(false);
-  
+  const [openSelectbtn, setOpenSelectbtn] = useState(false);
+
   return (
     <div lassName={styles.Deductionstab}>
       <div className={styles.Deductions}>
         <h2>Advance for FY25-26</h2>
         <div>
-          <Button variant="outlined" onClick={()=>setOpenSelectbtn(!openSelectbtn)}>Raise Request</Button>
-          {openSelectbtn && (
-            <div className={styles.btnselect}>
-              <p>Extra Deductions</p>
-              <p>Loans</p>
-            </div>
-          )}
-        </div>      
+          <Button variant="outlined" onClick={() => setOpenSelectbtn(!openSelectbtn)}>Raise Request</Button>
+          <SideModalExtraDeductions isOpen={openSelectbtn} onClose={() => setOpenSelectbtn(false)} title="Attendence Adjustment">
+          </SideModalExtraDeductions>
         </div>
+      </div>
       <div className={styles.Deductionstablebox}>
         <div className={styles.Deductionstable}>
           <div>Name</div>

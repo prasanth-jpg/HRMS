@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-weight: 700;
+}
+
+.tableContainer {
+  width: 100%;
+}
+
+.particularsHeader {
+  min-width: 220px;
+  font-weight: 600;
+}

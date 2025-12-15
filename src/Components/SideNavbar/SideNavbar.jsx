@@ -16,9 +16,11 @@ const SideNavbar = () => {
   const [active, setActive] = useState("");
 
   const showExtraFn = (extra) => {
-    SetShowExtra(extra);
+    console.log("extra",extra)
     SetShowExtraBl((prev) => !prev);
+    SetShowExtra(extra);
   };
+
   const showExtrnSubfn = (sub) => {
     setActive(sub);
   };
@@ -36,7 +38,7 @@ const SideNavbar = () => {
           <div className={styles.logoCircle}>
             {initial}
           </div>
-          <div className={styles.details}>
+          <div className={styles.details}>z
             <div>
               <h2>Gandrath Pranitha</h2>
             </div>

@@ -13,6 +13,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -61,16 +63,58 @@ const months = [
   "December",
 ];
 
+
 export default function TaxSheet({ showValues }) {
   const [openNewTaxModal, setOpenNewTaxModal] = useState(false);
   const [openPreview, setOpenPreview] = useState(false);
-  const [openComputation, setOpenComputation] = useState(false); 
+  const [openComputation, setOpenComputation] = useState(false);
 
   const grossRow = rows.find((r) => r.name === "Gross Salary(A)");
   const monthlyEarnings = grossRow ? Number(grossRow.calories) : 0;
 
   const dummyPDF =
     "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
+
+
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text("Income Tax sheet", 14, 15);
+
+    const tableColumn = [
+      "Particulars",
+      "Earnings",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ]
+
+    const tableRows = rows.map((row) => [
+      row.name
+      ,
+      showValues ? "****" : row.calories,
+      showValues ? "****" : row.fat,
+      showValues ? "****" : row.carbs,
+      showValues ? "****" : row.protein,
+      showValues ? "****" : row.calories,
+      showValues ? "****" : row.calories,
+      showValues ? "****" : row.calories,
+    ])
+
+    autoTable(doc, {
+      head: [tableColumn],
+      body: tableRows,
+      startY: 25,
+    })
+
+    doc.save("TaxSheet.pdf")
+  }
 
   return (
     <div className={styles.taxSheetMainDv}>
@@ -109,19 +153,9 @@ export default function TaxSheet({ showValues }) {
           </div>
 
           <div className={styles.taxSheetcurnry4}>
-            <Button variant="contained" sx={{ padding: 0 }}>
-              <a
-                href={dummyPDF}
-                download
-                style={{
-                  display: "inline-block",
-                  padding: "6px 14px",
-                  color: "inherit",
-                  textDecoration: "none",
-                }}
-              >
-                Download
-              </a>
+            <Button variant="contained" sx={{ padding: 0 }} onClick={handleDownloadPDF}>
+
+              Download
             </Button>
           </div>
         </div>

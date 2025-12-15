@@ -73,6 +73,7 @@
 .leaveAddDot {
     color: rgb(0, 132, 255);
     font-size: 2rem;
+    cursor: pointer;
 }
 
 .leave1Compdiv {

@@ -4,6 +4,9 @@ import Paper from '@mui/material/Paper';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Typography } from '@mui/material';
 import styles from "./PaySlips.module.css";
 
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable"
+
 const rows = [
   { id: "Sep 2025", payslips: 'Regular', TotalWorking: 500, Gross: 300, Deduction: 300, TDS: 300 },
   { id: "Aug 2025", payslips: 'Regular', TotalWorking: 300, Gross: 300, Deduction: 300, TDS: 300 },
@@ -27,8 +30,55 @@ export default function PaySlipTable() {
     setSelectedRow(null);
   };
 
-  const dummyPDF =
-    "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
+function createData(id,name, calories, fat, carbs, protein) {
+  return {id, name, calories, fat, carbs, protein };
+}
+const rows = [
+  createData("Basic", 159, 6.0, 24, 4.0),
+  createData("HRA", 237, 9.0, 37, 4.3),
+  createData("Other Allownaces", 262, 16.0, 24, 6.0),
+  createData("Total Extra Payments", 305, 3.7, 67, 4.3),
+  createData("Gross Salary(A)", 356, 16.0, 49, 3.9),
+  createData("Deduction", 356, 16.0, 49, 3.9),
+  createData("Provident Fund", 356, 16.0, 49, 3.9),
+  createData("Professional Tax", 356, 16.0, 49, 3.9),
+  createData("TDS", 356, 16.0, 49, 3.9),
+  createData("Total Deductions(B)", 356, 16.0, 49, 3.9),
+];
+
+
+      const handleDownloadPDF = () => {
+        const doc = new jsPDF();
+    
+        doc.setFontSize(16);
+        doc.text("Income Tax sheet", 14, 15);
+    
+        const tableColumn = [
+          "field",
+          "headerName",
+          "width",
+        ]
+    
+        const tableRows = rows.map((row) => [
+          row.name,
+         row.calories,
+         row.fat,
+         row.carbs,
+         row.protein,
+         row.calories,
+         row.calories,
+         row.calories,
+        ])
+    
+        autoTable(doc, {
+          head: [tableColumn],
+          body: tableRows,
+          startY: 25,
+        })
+    
+        doc.save("Payslip.pdf")
+      }
+    
 
   const columns = useMemo(() => [
     { field: 'id', headerName: 'For Period', width: 150 },
@@ -60,22 +110,10 @@ export default function PaySlipTable() {
               variant='outlined'
               size="small"
               sx={{ width: 100, padding: 0 }}
+              onClick={handleDownloadPDF}
             >
-              <a
-                href={dummyPDF}
-                download
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  display: "block",
-                  width: "100%",
-                  height: "100%",
-                  padding: "6px 0",
-                  textAlign: "center"
-                }}
-              >
+
                 Download
-              </a>
             </Button>
           </div>
         );

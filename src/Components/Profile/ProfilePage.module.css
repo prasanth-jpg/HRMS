@@ -57,3 +57,13 @@
   align-items: flex-start; 
 }
 }
+
+
+.Containerprofilepage{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2px;
+}

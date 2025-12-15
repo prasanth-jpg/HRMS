@@ -3,6 +3,7 @@ import React from "react";
 import Clipath from "../../../assets/Clipath.png";
 import styles from "./Loans.module.css";
 import { useState } from "react";
+import SideModalLoan from "./SideModalLoan/SideModalLoan";
 export const Loans = () => {
   const [openSelectbtn, setOpenSelectbtn] = useState(false);
   return (
@@ -10,13 +11,9 @@ export const Loans = () => {
       <div className={styles.Loans}>
         <h2>Loans for FY25-26</h2>
         <div>
-          <Button variant="outlined" onClick={()=>setOpenSelectbtn(!openSelectbtn)}>Raise Request</Button>
-          {openSelectbtn && (
-            <div className={styles.btnselect}>
-              <p>Loan Request</p>
-              <p>Loans</p>
-            </div>
-          )}
+          <Button variant="outlined" onClick={() => setOpenSelectbtn(!openSelectbtn)}>Raise Request</Button>
+          <SideModalLoan isOpen={openSelectbtn} onClose={() => setOpenSelectbtn(false)} title="Attendence Adjustment">
+          </SideModalLoan>
         </div>
       </div>
       <div className={styles.Loanstablebox}>

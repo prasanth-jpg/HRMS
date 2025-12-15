@@ -1,10 +1,66 @@
 import React from 'react';
 import styles from "./ProfilePage.module.css"
+import { Button } from '@mui/material';
+
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable"
+
+function createData(name, calories, fat, carbs, protein, proteins, protein1, protein2, protein3, protein4) {
+  return { name, calories, fat, carbs, protein, proteins, protein1, protein2, protein3, protein4 };
+}
+const rows = [
+  createData("Pranith", "Patel", "Gandrath", "Female", "2001", "19-Oct-2001", "Self", "single", "Pranith@easportsca.com", "self"),
+];
 
 const ProfilePage = () => {
+
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text("Income Tax sheet", 14, 15);
+
+    const tableColumn = [
+      "Name",
+      "Middle Name",
+      "Last Name",
+      "Gander",
+      "Show Date of Birth Year",
+      "Date Of Birth",
+      "Date of Birth Access",
+      "Marital Status",
+      "Persanal Email Id",
+      "Persanal Email Id Access",
+    ]
+
+    const tableRows = rows.map((row) => [
+      row.name,
+      row.calories,
+      row.fat,
+      row.carbs,
+      row.protein,
+      row.proteins, row.protein1, row.protein2, row.protein3, row.protein4
+    ])
+
+    autoTable(doc, {
+      head: [tableColumn],
+      body: tableRows,
+      startY: 25,
+    })
+
+    doc.save("Profile.pdf")
+  }
+
   return (
     <div className={styles.Container}>
-      <h2>Over View</h2>
+      <div className={styles.Containerprofilepage}>
+        <div> <h2>Over View</h2></div>
+        <div>
+          <Button variant='outlined'  onClick={handleDownloadPDF}>View Personal Details</Button>
+          <Button variant='contained' onClick={handleDownloadPDF}>Download</Button>
+        </div>
+      </div>
+
       <div className={styles.biographical}>
         <h3>Biographical</h3>
         <div className={styles.biographicalContainer}>
