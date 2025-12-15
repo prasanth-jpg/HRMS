@@ -18,7 +18,7 @@ const ProfilePage = () => {
     const doc = new jsPDF();
 
     doc.setFontSize(16);
-    doc.text("Income Tax sheet", 14, 15);
+    doc.text("Profile", 14, 15);
 
     const tableColumn = [
       "Name",

@@ -38,7 +38,7 @@ const SideNavbar = () => {
           <div className={styles.logoCircle}>
             {initial}
           </div>
-          <div className={styles.details}>z
+          <div className={styles.details}>
             <div>
               <h2>Gandrath Pranitha</h2>
             </div>
