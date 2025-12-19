@@ -5,11 +5,9 @@
   position: relative;
   width: 36px;
   height: 36px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1f1f1f;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -22,25 +20,19 @@
   filter: brightness(0) invert(1);
 }
 
-
 .noticount {
   position: absolute;
-  top: -4px;
-  right: -4px;
-
+  top: 0px;
+    right: 1px;
   min-width: 16px;
   height: 16px;
-
   font-size: 10px;
   font-weight: 600;
-
   background-color: #e53935;
   color: white;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   border-radius: 50%;
   z-index: 10;
 }
