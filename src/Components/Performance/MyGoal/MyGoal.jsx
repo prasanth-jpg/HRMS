@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styles from './MyGoal.module.css';
+import React, { useState } from "react";
+import styles from "./MyGoal.module.css";
 import keygoal from "../../../assets/keygoal.png";
 import OrgGoals from "../../../assets/OrgGoals.png";
 import more from "../../../assets/more.png";
@@ -8,11 +8,21 @@ import addicon from "../../../assets/addicon.png";
 
 import { Switch, FormControlLabel, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import AddGoals from '../../TimeManagemnet/AddGoals/AddGoals';
+import AddGoals from "../../TimeManagemnet/AddGoals/AddGoals";
 
 const MyGoal = () => {
-  const [showValues, setShowValues] = useState(false);
+  const [showValues, setShowValues] = useState(false); 
   const [isOpenAddGoals, setIsOpenAddGoals] = useState(false);
+
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const toggleDetails = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  const handleSubmit = () => {
+    alert("Your Goal Plan has been submitted.");
+  };
 
   const IOSSwitch = styled((props) => (
     <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
@@ -28,33 +38,18 @@ const MyGoal = () => {
         "& + .MuiSwitch-track": {
           backgroundColor: "#007bff",
           opacity: 1,
-          border: 0,
         },
       },
     },
     "& .MuiSwitch-thumb": {
-      boxSizing: "border-box",
       width: 24,
       height: 24,
     },
     "& .MuiSwitch-track": {
-      borderRadius: 26 / 2,
+      borderRadius: 13,
       backgroundColor: "#d3d6da",
-      opacity: 1,
-      transition: theme.transitions.create(["background-color"], {
-        duration: 500,
-      }),
     },
   }));
-
-  const toggleShowValues = (event) => {
-    setShowValues(event.target.checked);
-    console.log("Show all sub goals:", event.target.checked);
-  };
-
-  const handleSubmit = () => {
-    alert("Your Goal Plan has been submitted.");
-  };
 
   return (
     <div className={styles.container}>
@@ -67,13 +62,10 @@ const MyGoal = () => {
           <div className={styles.waringsub}>
             <p className={styles.warning}>
               <i className="fa fa-bell" style={{ color: "#aad1e7" }}></i>
-              The total Weightage of your Goal Plan is not 100. Please update Weightage and submit.{" "}
-              <span>90%</span>
+              The total Weightage of your Goal Plan is not 100. Please update
+              Weightage and submit. <span>90%</span>
             </p>
-            <button
-              className={styles.submitButton}
-              onClick={handleSubmit}
-            >
+            <button className={styles.submitButton} onClick={handleSubmit}>
               Submit
             </button>
           </div>
@@ -83,13 +75,19 @@ const MyGoal = () => {
           <div className={styles.goalCount}>
             <span>Total Goals / Key Result Areas</span>
             <h3>
-              <span><img src={keygoal} alt="key goals" /></span>8
+              <span>
+                <img src={keygoal} alt="key goals" />
+              </span>
+              8
             </h3>
           </div>
           <div className={styles.subGoalCount}>
             <span>Total Sub Goals</span>
             <h3>
-              <span><img src={OrgGoals} alt="org goals" /></span>1
+              <span>
+                <img src={OrgGoals} alt="org goals" />
+              </span>
+              1
             </h3>
           </div>
         </div>
@@ -97,22 +95,12 @@ const MyGoal = () => {
         <div className={styles.showAllSubGoals}>
           <div className={styles.showAllSubGoalstoggle}>
             <FormControlLabel
-              labelPlacement="start"
               control={
                 <IOSSwitch
                   checked={showValues}
-                  onChange={toggleShowValues}
+                  onChange={(e) => setShowValues(e.target.checked)}
                 />
               }
-              sx={{
-                marginLeft: "10px",
-                color: "#475569",
-                fontWeight: 500,
-                gap: "8px",
-                ".MuiFormControlLabel-label": {
-                  fontSize: "0.95rem",
-                },
-              }}
             />
             <p>Show All Sub Goals</p>
           </div>
@@ -120,109 +108,188 @@ const MyGoal = () => {
           <div className={styles.showAllSubGoalsbtn}>
             <div>Journal</div>
             <div>Add Notes</div>
-            <div className={styles.showAllSubGoalsbtndrp}>
-              <select className={styles.dropdown}>
-                <option className={styles.optionDrop}>Secondary Pill</option>
-                <option className={styles.optionDrop}>A-Z</option>
-                <option className={styles.optionDrop}>Start Date</option>
-                <option className={styles.optionDrop}>End Date</option>
-                <option className={styles.optionDrop}>Weightage</option>
-              </select>
-            </div>
-            <div>
-              <Button
-                variant="contained"
-                onClick={() => setIsOpenAddGoals(true)}
-              >
-                + Add Goals / Keys Request
-              </Button>
-            </div>
+            <select className={styles.dropdown}>
+              <option>Secondary Pill</option>
+              <option>A-Z</option>
+              <option>Start Date</option>
+              <option>End Date</option>
+              <option>Weightage</option>
+            </select>
+
+            <Button
+              variant="contained"
+              onClick={() => setIsOpenAddGoals(true)}
+            >
+              + Add Goals / Keys Request
+            </Button>
           </div>
         </div>
 
         <div className={styles.pillars}>
+
           <div className={styles.pillar}>
             <div className={styles.pillarinpro}>
               <h4>Quality & Delivery Excellence</h4>
               <span className={styles.status}>inProgress</span>
             </div>
+
             <div className={styles.pillarwei}>
               <p>Weightage</p>
               <p>30%</p>
             </div>
+
             <div className={styles.pillarweibtn2}>
               <div className={styles.pillarweibtnimg}>
-                <img src={addicon} alt="add" />
-                <img src={pencile} alt="edit" />
-                <img src={more} alt="more" />
+                <img src={addicon} />
+                <img src={pencile} />
+                <img src={more} />
               </div>
-              <button className={styles.detailsButton}>Show Details</button>
+              <button
+                className={styles.detailsButton}
+                onClick={() => toggleDetails(0)}
+              >
+                {openIndex === 0 ? "Hide Details" : "Show Details"}
+              </button>
             </div>
           </div>
+
+          {showValues && (
+            <div className={styles.subGoals}>
+              <p>• Reduce defect leakage</p>
+              <p>• Improve code quality</p>
+              <p>• Meet sprint timelines</p>
+            </div>
+          )}
+
+          {openIndex === 0 && (
+            <div className={styles.showDetailsContainer}>
+              <div className={styles.detailRow}>
+                <span>Objective</span>
+                <span>Improve delivery quality</span>
+              </div>
+              <div className={styles.detailRow}>
+                <span>Status</span>
+                <span>In Progress</span>
+              </div>
+            </div>
+          )}
 
           <div className={styles.pillar}>
             <div className={styles.pillarinpro}>
               <h4>Process Efficiency & Automation</h4>
               <span className={styles.status}>inProgress</span>
             </div>
+
             <div className={styles.pillarwei}>
               <p>Weightage</p>
               <p>30%</p>
             </div>
+
             <div className={styles.pillarweibtn2}>
-              <div className={styles.pillarweibtnimg}>
-                <img src={addicon} alt="add" />
-                <img src={pencile} alt="edit" />
-                <img src={more} alt="more" />
-              </div>
-              <button className={styles.detailsButton}>Show Details</button>
+              <button
+                className={styles.detailsButton}
+                onClick={() => toggleDetails(1)}
+              >
+                {openIndex === 1 ? "Hide Details" : "Show Details"}
+              </button>
             </div>
           </div>
+
+          {showValues && (
+            <div className={styles.subGoals}>
+              <p>• Automate manual tasks</p>
+              <p>• Improve efficiency</p>
+            </div>
+          )}
+
+          {openIndex === 1 && (
+            <div className={styles.showDetailsContainer}>
+              <div className={styles.detailRow}>
+                <span>Objective</span>
+                <span>Automate workflows</span>
+              </div>
+            </div>
+          )}
 
           <div className={styles.pillar}>
             <div className={styles.pillarinpro}>
               <h4>Team Development & Engagement</h4>
               <span className={styles.status}>inProgress</span>
             </div>
+
             <div className={styles.pillarwei}>
               <p>Weightage</p>
               <p>30%</p>
             </div>
+
             <div className={styles.pillarweibtn2}>
-              <div className={styles.pillarweibtnimg}>
-                <img src={addicon} alt="add" />
-                <img src={pencile} alt="edit" />
-                <img src={more} alt="more" />
-              </div>
-              <button className={styles.detailsButton}>Show Details</button>
+              <button
+                className={styles.detailsButton}
+                onClick={() => toggleDetails(2)}
+              >
+                {openIndex === 2 ? "Hide Details" : "Show Details"}
+              </button>
             </div>
           </div>
 
+          {showValues && (
+            <div className={styles.subGoals}>
+              <p>• Improve team engagement</p>
+              <p>• Conduct training sessions</p>
+            </div>
+          )}
+
+          {openIndex === 2 && (
+            <div className={styles.showDetailsContainer}>
+              <div className={styles.detailRow}>
+                <span>Objective</span>
+                <span>Build strong teams</span>
+              </div>
+            </div>
+          )}
+
           <div className={styles.pillar}>
             <div className={styles.pillarinpro}>
-              <h4>Team Development & Engagement</h4>
+              <h4>Innovation & Continuous Improvement</h4>
               <span className={styles.status}>inProgress</span>
             </div>
+
             <div className={styles.pillarwei}>
               <p>Weightage</p>
-              <p>30%</p>
+              <p>10%</p>
             </div>
+
             <div className={styles.pillarweibtn2}>
-              <div className={styles.pillarweibtnimg}>
-                <img src={addicon} alt="add" />
-                <img src={pencile} alt="edit" />
-                <img src={more} alt="more" />
-              </div>
-              <button className={styles.detailsButton}>Show Details</button>
+              <button
+                className={styles.detailsButton}
+                onClick={() => toggleDetails(3)}
+              >
+                {openIndex === 3 ? "Hide Details" : "Show Details"}
+              </button>
             </div>
           </div>
+
+          {showValues && (
+            <div className={styles.subGoals}>
+              <p>• Encourage innovation ideas</p>
+            </div>
+          )}
+
+          {openIndex === 3 && (
+            <div className={styles.showDetailsContainer}>
+              <div className={styles.detailRow}>
+                <span>Objective</span>
+                <span>Drive innovation</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
       <AddGoals
         isOpen={isOpenAddGoals}
         onClose={() => setIsOpenAddGoals(false)}
-        title="Attendence Adjustment"
+        title="Add Goals"
       />
     </div>
   );

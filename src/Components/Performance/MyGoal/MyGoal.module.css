@@ -157,11 +157,6 @@
     margin-right: 10px;
 }
 
-.detailsButton{
-    background: transparent;
-    box-shadow: none;
-    color: rgb(54, 54, 242);
-}
 
 .status {
     position: relative;
@@ -244,4 +239,40 @@ background-color: transparent;
     height: 30px;
     border-color: rgb(189, 189, 189);
     border-radius: 4px;
+}
+.pillarDetails {
+  margin-top: 10px;
+  padding: 12px;
+  background-color: #f8fafc;
+  border-left: 4px solid #224066;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #334155;
+}
+
+.detailsButton {
+  background: transparent;
+  border: none;
+  color: #224066;
+  cursor: pointer;
+  font-weight: 500;
+}
+.showDetailsContainer {
+  padding: 12px 16px;
+  border-top: 1px solid #e5e7eb;
+  background-color: #fafafa;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+.subGoals {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  color: #475569;
 }

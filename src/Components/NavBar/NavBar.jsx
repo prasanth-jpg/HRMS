@@ -6,6 +6,7 @@ import menu from "../../assets/menu.png";
 import more from "../../assets/more.png";
 import backbtn from "../../assets/leftarrow.png";
 import addicon from "../../assets/addicon.png";
+import profile from '../../assets/profile.png'
 // import download from '../../assets/download.png'
 import { useNavigate } from "react-router-dom";
 import Style from "../AccessPage/Acesspage.module.css";
@@ -43,8 +44,8 @@ const NavBar = ({ qrlocation }) => {
 
   const [showDashboard, setShowDashBoard] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
-  const profileRef = useRef(null)
-  const notificationRef = useRef(null)
+  const profileRef = useRef(null);
+  const notificationRef = useRef(null);
   const [openPreview, setOpenPreview] = useState(false);
 
   const navigate = useNavigate();
@@ -80,46 +81,50 @@ const NavBar = ({ qrlocation }) => {
   }, [width]);
 
   const handleclick = (e) => {
-    setSearchInput(e.target.value)
-    setOpenPreview(true)
+    setSearchInput(e.target.value);
+    setOpenPreview(true);
     if (searchInput === "") {
-      setOpenPreview(false)
+      setOpenPreview(false);
     }
-  }
+  };
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/profile/profileGet')
-      .then(res => res.json())
-      .then(data => {
+    fetch("http://localhost:5000/api/profile/profileGet")
+      .then((res) => res.json())
+      .then((data) => {
         console.log("fd", data);
-        setSearchData(data)
-      })
-  }, [])
-
+        setSearchData(data);
+      });
+  }, []);
 
   useEffect(() => {
-    if (!Array.isArray(searchData)) return
-    const pp = searchData.filter((e) => e.FirstName?.toLowerCase().includes(searchInput.toLowerCase()))
-    setSearchResult(pp)
-    console.log("sssssss", pp)
-  }, [searchInput, searchData])
+    if (!Array.isArray(searchData)) return;
+    const pp = searchData.filter((e) =>
+      e.FirstName?.toLowerCase().includes(searchInput.toLowerCase())
+    );
+    setSearchResult(pp);
+    console.log("sssssss", pp);
+  }, [searchInput, searchData]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (profileRef.current && !profileRef.current.contains(event.target)) {
-        setShowPro(false)
+        setShowPro(false);
       }
-      if (notificationRef.current && !notificationRef.current.contains(event.target)) {
-        setShowNoti(false)
+      if (
+        notificationRef.current &&
+        !notificationRef.current.contains(event.target)
+      ) {
+        setShowNoti(false);
       }
     };
     if (showPro || showNoti) {
-      document.addEventListener("mousedown", handleClickOutside)
+      document.addEventListener("mousedown", handleClickOutside);
     }
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [showPro, showNoti])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showPro, showNoti]);
 
   return (
     <div className={Style.container}>
@@ -150,7 +155,9 @@ const NavBar = ({ qrlocation }) => {
           <div className={Style.inputsrch}>
             <input
               type="text"
-              placeholder="search by Employee Name, Designation, Department..." value={searchInput} onChange={(e) => handleclick(e)}
+              placeholder="search by Employee Name, Designation, Department..."
+              value={searchInput}
+              onChange={(e) => handleclick(e)}
             ></input>
             <div className={Style.profileIconSrch}>
               <img src={search} alt="search" />
@@ -162,21 +169,17 @@ const NavBar = ({ qrlocation }) => {
             </div>
             <div className={`${showMenu ? Style.profile : Style.profileHide}`}>
               <div>{clockTime ? clockTime : "00:00:00"}</div>
-              <div
-                className={Style.profileIconclock}
-                onClick={() => onclickfun()}
-              >
-                <img src={clockin} alt="clockin" />
+              <div className={styles.profileIconclock} onClick={onclickfun}>
+                <img src={clockin} />
               </div>
-              <div
-                className={Style.profileIconnotifi}
-                onClick={() => handleNoti()}
-              >
-                <img src={notif} alt="notif" />
+
+              <div className={styles.profileIconnotifi} onClick={handleNoti}>
+                <img src={notif} />
                 <span className={styles.noticount}>6</span>
               </div>
-              <div className={Style.profileicon} onClick={() => handlePro()}>
-                <img src={notif} alt="notif" />
+
+              <div className={styles.profileicon} onClick={handlePro}>
+                <img src={profile} />
               </div>
             </div>
           </div>
@@ -214,15 +217,27 @@ const NavBar = ({ qrlocation }) => {
           <div className={styles.notificat}>
             <div className={styles.notificatcontainer}>
               <div className={styles.profileicon2}></div>
-              <div className={styles.profileicon2BTN} onClick={() => { navigate("/profile/Overview"); setShowPro(false) }}>
+              <div
+                className={styles.profileicon2BTN}
+                onClick={() => {
+                  navigate("/profile/Overview");
+                  setShowPro(false);
+                }}
+              >
                 <Button variant="contained">VIEW PROFILE</Button>
               </div>
               <div className={styles.MobileQR} onClick={() => handleQr(true)}>
-                <img src={addicon}/>
+                <img src={addicon} />
                 <p>Mobile QR Code</p>
               </div>
-              <div className={styles.MobileQR} onClick={() => { navigate("/"); setShowPro(false) }}>
-                <img src={addicon}/>
+              <div
+                className={styles.MobileQR}
+                onClick={() => {
+                  navigate("/");
+                  setShowPro(false);
+                }}
+              >
+                <img src={addicon} />
                 <p>Logout</p>
               </div>
             </div>
@@ -236,14 +251,15 @@ const NavBar = ({ qrlocation }) => {
           onClose={() => setShowDashBoard(false)}
         />
       }
-      {searchResult.length === 1 ?
-      <NavBarModal
-        open={openPreview}
-        setOpen={setOpenPreview}
-        rows={searchResult}
-        showValues={true}
-        // months={months}
-      />:null}
+      {searchResult.length === 1 ? (
+        <NavBarModal
+          open={openPreview}
+          setOpen={setOpenPreview}
+          rows={searchResult}
+          showValues={true}
+          // months={months}
+        />
+      ) : null}
     </div>
   );
 };
