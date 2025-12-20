@@ -103,3 +103,10 @@
   background-color: rgb(233, 233, 233);
   border-radius: 10px;
 }
+.iconandname{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+}

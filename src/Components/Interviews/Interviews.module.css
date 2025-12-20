@@ -63,8 +63,41 @@
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: self-start;
+  text-align: center;
+ 
 }
+
+.infodiv{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  position: relative;
+  top: 20%;
+}
+.formdiv{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.namediv{
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+}
+.updateDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid gray;
+}
+.updateDiv p{
+  padding: 30px;
+}
+.updateDivborders .updateDiv:nth-last-child(){
+  border-bottom: none;
+}
+
 @media screen and (max-width: 720px) {
   .InterviewsTabContent {
     width: 100px;

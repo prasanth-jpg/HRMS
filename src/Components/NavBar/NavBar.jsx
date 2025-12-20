@@ -6,7 +6,7 @@ import menu from "../../assets/menu.png";
 import more from "../../assets/more.png";
 import backbtn from "../../assets/leftarrow.png";
 import addicon from "../../assets/addicon.png";
-import profile from '../../assets/profile.png'
+import profile from "../../assets/profile.png";
 // import download from '../../assets/download.png'
 import { useNavigate } from "react-router-dom";
 import Style from "../AccessPage/Acesspage.module.css";
@@ -216,7 +216,10 @@ const NavBar = ({ qrlocation }) => {
         <div ref={profileRef} className={styles.profileNoti}>
           <div className={styles.notificat}>
             <div className={styles.notificatcontainer}>
-              <div className={styles.profileicon2}></div>
+              <div className={styles.iconandname}>
+                <div className={styles.profileicon2}></div>
+                <div> Gandarth Pranitha</div>
+              </div>
               <div
                 className={styles.profileicon2BTN}
                 onClick={() => {
