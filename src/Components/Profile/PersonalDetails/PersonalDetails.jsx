@@ -10,7 +10,7 @@ const  PersonalDetails= () => {
         <div className={styles.biographicalContainer}>
           <div className={styles.details}>
             <p className={styles.detailsp}>First Name</p>
-            <p className={styles.detailspd}></p>
+            <p className={styles.detailspd}>Pranitha</p>
           </div>
           <div className={styles.details}>
             <p className={styles.detailsp}>Middle Name</p>
@@ -60,7 +60,7 @@ const  PersonalDetails= () => {
         <div className={styles.biographicalContainer}>
           <div className={styles.details}>
             <p className={styles.detailsp}>Persanal Email Id</p>
-            <p className={styles.detailspd}>Pranith@easportsca.com</p>
+            <p className={styles.detailspd}>Pranith@easportca.com</p>
           </div>
           <div className={styles.details} >
             <p className={styles.detailsp}>Persanal Email Id Access</p>

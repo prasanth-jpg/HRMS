@@ -153,7 +153,7 @@ export default function TaxSheet({ showValues }) {
           </div>
 
           <div className={styles.taxSheetcurnry4}>
-            <Button variant="contained" sx={{ padding: 0 }} onClick={handleDownloadPDF}>
+            <Button variant="contained" onClick={handleDownloadPDF}>
 
               Download
             </Button>

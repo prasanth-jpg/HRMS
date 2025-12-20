@@ -1,21 +1,42 @@
 import React, { useState, useEffect } from "react";
 import styles from "./OpenTask.module.css";
 import listview from "../../../assets/listview.png";
-import benifits1 from "../../../assets/benifits1.png"
+import benifits1 from "../../../assets/benifits1.png";
 
 const OpenTask = () => {
   const [buttons, setButtons] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [goal, setGoal] = useState("");
+  const [goalsList, setGoalsList] = useState([]);
 
-  const activeButton = (act) => {
-    setButtons(act);
-  };
   useEffect(() => {
     setButtons("All");
   }, []);
+
+  const activeButton = (act) => {
+    setButtons(act);
+
+    if (act === "All") {
+      setIsModalOpen(true);
+    }
+  };
+
+  const saveGoal = () => {
+    if (goal.trim() === "") return;
+
+    setGoalsList([...goalsList, goal]);
+    setGoal("");
+    setIsModalOpen(false);
+  };
+
   return (
     <div className={styles.OpenTaskContainer}>
       <div className={styles.OpenTask}>
-        <div  className={styles.OpenTaskdiv}><img src={benifits1}/> <div>Open Tasks</div></div>
+        <div className={styles.OpenTaskdiv}>
+          <img src={benifits1} alt="icon" />
+          <div>Open Tasks</div>
+        </div>
+
         <div className={styles.buttonsdiv}>
           <div
             className={`${styles.buttons} ${
@@ -25,6 +46,7 @@ const OpenTask = () => {
           >
             ALL-1
           </div>
+
           <div
             className={`${styles.buttons} ${
               buttons === "OVERDUE" ? styles.activebtn : ""
@@ -33,6 +55,7 @@ const OpenTask = () => {
           >
             OVERDUE
           </div>
+
           <div
             className={`${styles.buttons} ${
               buttons === "TIMES" ? styles.activebtn : ""
@@ -41,6 +64,7 @@ const OpenTask = () => {
           >
             DUE TIMES WEEK-10
           </div>
+
           <div
             className={`${styles.buttons} ${
               buttons === "filter" ? styles.activebtn : ""
@@ -51,9 +75,51 @@ const OpenTask = () => {
           </div>
         </div>
       </div>
-      <div className={styles.label}>
-              {buttons=== "All" ? ":Add Goals Key Result Areas to Goal Plan": buttons}
+
+      <div
+        className={styles.label}
+        onClick={() => buttons === "All" && setIsModalOpen(true)}
+      >
+        {buttons === "All"
+          ? ": Add Goals Key Result Areas to Goal Plan"
+          : buttons}
       </div>
+
+      {/* Goals List */}
+      {goalsList.length > 0 && (
+        <div className={styles.goalsList}>
+          <h4>Added Goals</h4>
+          <ul>
+            {goalsList.map((g, index) => (
+              <li key={index}>{g}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* MODAL */}
+      {isModalOpen && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modal}>
+            <h3>Add Goal</h3>
+
+            <input
+              type="text"
+              placeholder="Enter goal"
+              value={goal}
+              onChange={(e) => setGoal(e.target.value)}
+              className={styles.input}
+            />
+
+            <div className={styles.modalActions}>
+              <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+              <button className={styles.saveBtn} onClick={saveGoal}>
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

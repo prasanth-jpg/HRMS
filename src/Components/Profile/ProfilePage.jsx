@@ -1,6 +1,7 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styles from "./ProfilePage.module.css"
 import { Button } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable"
@@ -9,11 +10,14 @@ function createData(name, calories, fat, carbs, protein, proteins, protein1, pro
   return { name, calories, fat, carbs, protein, proteins, protein1, protein2, protein3, protein4 };
 }
 const rows = [
-  createData("Pranith", "Patel", "Gandrath", "Female", "2001", "19-Oct-2001", "Self", "single", "Pranith@easportsca.com", "self"),
+  createData("Pranith", "Patel", "Gandrath", "Female", "2001", "19-Oct-2001", "Self", "single", "Pranith@easportca.com", "self"),
 ];
 
 const ProfilePage = () => {
+  const [open, setOpen] = useState(false);
 
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
 
@@ -56,7 +60,7 @@ const ProfilePage = () => {
       <div className={styles.Containerprofilepage}>
         <div> <h2>Over View</h2></div>
         <div>
-          <Button variant='outlined'  onClick={handleDownloadPDF}>View Personal Details</Button>
+          <Button variant='outlined' onClick={handleOpen}>View Personal Details</Button>
           <Button variant='contained' onClick={handleDownloadPDF}>Download</Button>
         </div>
       </div>
@@ -116,7 +120,7 @@ const ProfilePage = () => {
         <div className={styles.biographicalContainer}>
           <div className={styles.details}>
             <p className={styles.detailsp}>Persanal Email Id</p>
-            <p className={styles.detailspd}>Pranith@easportsca.com</p>
+            <p className={styles.detailspd}>Pranith@easportca.com</p>
           </div>
           <div className={styles.details} >
             <p className={styles.detailsp}>Persanal Email Id Access</p>
@@ -167,6 +171,46 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
+       <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+        <DialogTitle>Personal Details</DialogTitle>
+        <DialogContent dividers>
+          <div className={styles.biographicalContainer}>
+            <div className={styles.details}>
+              <p className={styles.detailsp}>First Name</p>
+              <p className={styles.detailspd}>Pranitha</p>
+            </div>
+            <div className={styles.details}>
+              <p className={styles.detailsp}>Middle Name</p>
+              <p className={styles.detailspd}>Patel</p>
+            </div>
+            <div className={styles.details}>
+              <p className={styles.detailsp}>Last Name</p>
+              <p className={styles.detailspd}>Gandrath</p>
+            </div>
+            <div className={styles.details}>
+              <p className={styles.detailsp}>Gander</p>
+              <p className={styles.detailspd}>Female</p>
+            </div>
+            <div className={styles.details}>
+              <p className={styles.detailsp}>Date Of Birth</p>
+              <p className={styles.detailspd}>19-Oct-2001</p>
+            </div>
+            <div className={styles.details}>
+              <p className={styles.detailsp}>Marital Status</p>
+              <p className={styles.detailspd}>Single</p>
+            </div>
+            <div className={styles.details}>
+              <p className={styles.detailsp}>Persanal Email Id</p>
+              <p className={styles.detailspd}>Pranith@easportca.com</p>
+            </div>
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} variant="contained">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   )
 }

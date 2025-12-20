@@ -35,13 +35,16 @@ const goals = [
   },
 ];
 
-const GoalsTable = ({ searchTerm = "" }) => {
+const GoalsTable = ({ searchTerm = "", filterList, filtershow}) => {
   const q = searchTerm.toLowerCase().trim();
 
-  const filteredGoals = goals.filter((goal) =>
-    goal.name.toLowerCase().includes(q)
-  );
+  let filteredGoals = goals
+    .filter(goal => goal.name.toLowerCase().includes(q))
 
+  if(filterList){
+      filteredGoals=[...filteredGoals].sort((a,b)=>a.name.localeCompare(b.name))
+  }
+  
   return (
     <table className={styles.table}>
       <thead>

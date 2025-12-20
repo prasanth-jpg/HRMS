@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Button } from '@mui/material'
 
 import styles from "./AddGoals.module.css"
 
 export default function AddGoals({ isOpen, onClose }) {
+    const [openSub, SetOpenSub] = useState(false)
+    const openSubGoal = () => {
+        SetOpenSub((prev) => !prev)
+    }
     return (
         <>
             <div className={`${styles.overlay} ${isOpen ? styles.showOverlay : ""}`} />
@@ -64,8 +68,11 @@ export default function AddGoals({ isOpen, onClose }) {
                                 <input type='text' placeholder='Enter value here' />
                             </div>
                         </div>
+                        {
+                            openSub ? <textarea type='textarea' placeholder='Write SubGoals' rows="30"/> : null
+                        }
                         <div className={styles.buttonRow}>
-                            <Button type="button" onClick={onClose} variant='outlined' className={styles.cancel}>+ Sub Goals</Button>
+                            <Button type="button" onClick={openSubGoal} variant='outlined' className={styles.cancel}>+ Sub Goals</Button>
                             <Button type="button" onClick={onClose} variant='contained' className={styles.submit}>Save</Button>
                         </div>
                     </form>

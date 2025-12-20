@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./SideNavbar.module.css";
 import profile from "../../assets/profile.png";
 import Employee_life_cycle from "../../assets/Employee_life_cycle.png";
@@ -11,435 +11,246 @@ import travel from "../../assets/travel.png";
 import { Link } from "react-router-dom";
 
 const SideNavbar = () => {
-  const [showExtra, SetShowExtra] = useState("");
-  const [showExtraBl, SetShowExtraBl] = useState(false);
-  const [active, setActive] = useState("");
+  const [openMenu, setOpenMenu] = useState("");
+  const [activeSub, setActiveSub] = useState("");
 
-  const showExtraFn = (extra) => {
-    console.log("extra",extra)
-    SetShowExtraBl((prev) => !prev);
-    SetShowExtra(extra);
+  const toggleMenu = (menu) => {
+    setOpenMenu((prev) => {
+      const isClosing = prev === menu;
+
+      if (!isClosing) {
+        if (menu === "Profile") setActiveSub("Overview");
+        if (menu === "Flow") setActiveSub("flowRequest");
+        if (menu === "TimeAndAttendance") setActiveSub("overview");
+        if (menu === "Performance") setActiveSub("overview");
+        if (menu === "Reimbursement") setActiveSub("overview");
+      }
+
+      return isClosing ? "" : menu;
+    });
   };
 
-  const showExtrnSubfn = (sub) => {
-    setActive(sub);
-  };
+  const name = "Gandrath Pranitha";
+  const initial = name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase();
 
-  useEffect(() => {
-    if (showExtra === "TimeAndAttendance") setActive("overview");
-  }, [showExtra]);
-
-  const name= "Gandrath Pranitha";
-  const initial=name.split(" ").map(n=>n[0]).join(" ").toUpperCase();
   return (
     <div className={styles.sidebar}>
       <div className={styles.logo}>
         <div className={styles.userDetails}>
-          <div className={styles.logoCircle}>
-            {initial}
-          </div>
+          <div className={styles.logoCircle}>{initial}</div>
           <div className={styles.details}>
-            <div>
-              <h2>Gandrath Pranitha</h2>
-            </div>
-            <div>
-              <p>Arin930</p>
-            </div>
-            <div>
-              <p>Software Engineer</p>
-            </div>
+            <h2>{name}</h2>
+            <p>Arin930</p>
+            <p>Software Engineer</p>
           </div>
         </div>
       </div>
+
       <div className={styles.lineparent}>
-        <div className={styles.line}></div>
+        <div className={styles.line} />
       </div>
+
       <ul className={styles.Menu}>
-        <Link to="/profile/Overview">
-          <div className={styles.chevronRightDivContainer}>
-            <div
-              className={`${styles.chevronRightDiv} ${
-                showExtra === "Profile" ? styles.avtiveTab : ""
+        <li className={styles.chevronRightDivContainer}>
+          <div
+            className={`${styles.chevronRightDiv} ${openMenu === "Profile" ? styles.avtiveTab : ""
               }`}
-              onClick={() => showExtraFn("Profile")}
-            >
-              <div className={styles.chevronRightDivimg}>
-                <img src={profile} alt="Profile" />
-                <span>Profile</span>
-              </div>
-              <span className={styles.chevronRight}>
-                <img src={chevronRight} alt="chevronRight" />
-              </span>
+            onClick={() => toggleMenu("Profile")}
+          >
+            <div className={styles.chevronRightDivimg}>
+              <img src={profile} alt="" />
+              <span>Profile</span>
             </div>
-            {showExtra === "Profile" && showExtraBl ? (
-              <ul
-                className={` ${
-                  showExtra === "Profile" ? styles.extraUiShow : styles.extraUi
-                } `}
-              >
-                <Link
-                  to="/Profile/Overview"
-                  onClick={() => showExtrnSubfn("Overview")}
-                  className={`${
-                    showExtra === "Profile" ? styles.activeSub : ""
-                  }`}
-                >
-                  Overview
-                </Link>
-                <Link
-                  to="/Profile/PersonalDetails"
-                  onClick={() => showExtrnSubfn("PersonalDetails")}
-                  className={`${
-                    active === "PersonalDetails" && showExtra === "Profile"
-                      ? styles.activeSub
-                      : ""
-                  }`}
-                >
-                  Personal Details
-                </Link>
-                <Link
-                  to="/Profile/EmploymentDetails"
-                  onClick={() => showExtrnSubfn("EmploymentDetails")}
-                  className={`${
-                    active === "EmploymentDetails" && showExtra === "Profile"
-                      ? styles.activeSub
-                      : ""
-                  }`}
-                >
-                  Employment Details
-                </Link>
-                <Link
-                  to="/Profile/Documents"
-                  onClick={() => showExtrnSubfn("Documents")}
-                  className={`${
-                    active === "Documents" && showExtra === "Profile"
-                      ? styles.activeSub
-                      : ""
-                  }`}
-                >
-                  Documents
-                </Link>
-              </ul>
-            ) : null}
+            <img className={styles.chevronRight} src={chevronRight} alt="" />
           </div>
-        </Link>
-        <Link to="/Flow/flowRequest">
-          <div className={styles.chevronRightDivContainer}>
-            <div
-              className={`${styles.chevronRightDiv} ${
-                showExtra === "Flow" ? styles.avtiveTab : ""
+
+          {openMenu === "Profile" && (
+            <ul className={styles.extraUiShow}>
+              <Link
+                to="/Profile/Overview"
+                className={activeSub === "Overview" ? styles.activeSub : ""}
+                onClick={() => setActiveSub("Overview")}
+              >
+                Overview
+              </Link>
+              <Link
+                to="/Profile/PersonalDetails"
+                className={activeSub === "PersonalDetails" ? styles.activeSub : ""}
+                onClick={() => setActiveSub("PersonalDetails")}
+              >
+                Personal Details
+              </Link>
+              <Link
+                to="/Profile/EmploymentDetails"
+                className={activeSub === "EmploymentDetails" ? styles.activeSub : ""}
+                onClick={() => setActiveSub("EmploymentDetails")}
+              >
+                Employment Details
+              </Link>
+              <Link
+                to="/Profile/Documents"
+                className={activeSub === "Documents" ? styles.activeSub : ""}
+                onClick={() => setActiveSub("Documents")}
+              >
+                Documents
+              </Link>
+            </ul>
+          )}
+        </li>
+
+        <li className={styles.chevronRightDivContainer}>
+          <div
+            className={`${styles.chevronRightDiv} ${openMenu === "Flow" ? styles.avtiveTab : ""
               }`}
-              onClick={() => showExtraFn("Flow")}
-            >
-              <div className={styles.chevronRightDivimg}>
-                <img src={Employee_life_cycle} alt="Flow" />
-                <span>Flow</span>
-              </div>
-              <span className={styles.chevronRight}>
-                <img src={chevronRight} alt="chevronRight" />
-              </span>
+            onClick={() => toggleMenu("Flow")}
+          >
+            <div className={styles.chevronRightDivimg}>
+              <img src={Employee_life_cycle} alt="" />
+              <span>Flow</span>
             </div>
-            {showExtra === "Flow" && showExtraBl ? (
-              <ul
-                className={` ${
-                  showExtra === "Flow" ? styles.extraUiShow : styles.extraUi
-                } `}
-              >
-                <Link
-                  to="/Flow/flowRequest"
-                  onClick={() => showExtrnSubfn("flowRequest")}
-                  className={`${
-                    active === "flowRequest" && showExtra === "Flow"
-                      ? styles.activeSub
-                      : ""
-                  }`}
-                >
-                  Flow Request
-                </Link>
-                <Link
-                  to="/Flow/Confirmation"
-                  onClick={() => showExtrnSubfn("Confirmation")}
-                  className={`${
-                    active === "Confirmation" && showExtra === "Flow"
-                      ? styles.activeSub
-                      : ""
-                  }`}
-                >
-                  Confirmation
-                </Link>
-                <Link
-                  to="/Flow/Separation"
-                  onClick={() => showExtrnSubfn("Separation")}
-                  className={`${
-                    active === "Separation" && showExtra === "Flow"
-                      ? styles.activeSub
-                      : ""
-                  }`}
-                >
-                  Separation
-                </Link>
-              </ul>
-            ) : null}
+            <img className={styles.chevronRight} src={chevronRight} alt="" />
           </div>
+
+          {openMenu === "Flow" && (
+            <ul className={styles.extraUiShow}>
+              <Link
+                to="/Flow/flowRequest"
+                className={activeSub === "flowRequest" ? styles.activeSub : ""}
+                onClick={() => setActiveSub("flowRequest")}
+              >
+                Flow Request
+              </Link>
+              <Link
+                to="/Flow/Confirmation"
+                className={activeSub === "Confirmation" ? styles.activeSub : ""}
+                onClick={() => setActiveSub("Confirmation")}
+              >
+                Confirmation
+              </Link>
+              <Link
+                to="/Flow/Separation"
+                className={activeSub === "Separation" ? styles.activeSub : ""}
+                onClick={() => setActiveSub("Separation")}
+              >
+                Separation
+              </Link>
+            </ul>
+          )}
+        </li>
+
+        <Link to="/Compensation" className={`${styles.chevronRightDiv} ${openMenu === "Compensation" ? styles.avtiveTab : ""
+          }`} onClick={() => toggleMenu("Compensation")}
+        >
+          <div className={styles.chevronRightDivimg}>
+            <img src={compensation} alt="" />
+            <span>Compensation</span>
+          </div>
+          <img alt="" />
+
         </Link>
-        <Link to="/Compensation">
-          <img src={compensation} alt="compensation" />
-          <span>Compensation</span>
+
+        <Link to="/Benefits" className={`${styles.chevronRightDiv} ${openMenu === "Benefits" ? styles.avtiveTab : ""
+          }`} onClick={() => toggleMenu("Benefits")}>
+          <div className={styles.chevronRightDivimg}>
+            <img src={benifits1} alt="" />
+            <span>Benefits</span>
+          </div>
+          <img alt="" />
+
         </Link>
-        <Link to="/Benefits">
-          <img src={benifits1} alt="benifits1" />
-          <span>Benefits</span>
-        </Link>
-        <Link to="/Attendance/overview">
-          <div className={styles.chevronRightDivContainer}>
-            <div
-              className={`${styles.chevronRightDiv} ${
-                showExtra === "TimeAndAttendance" ? styles.avtiveTab : ""
+
+        <li className={styles.chevronRightDivContainer}>
+          <div
+            className={`${styles.chevronRightDiv} ${openMenu === "TimeAndAttendance" ? styles.avtiveTab : ""
               }`}
-              onClick={() => showExtraFn("TimeAndAttendance")}
-            >
-              <div className={styles.chevronRightDivimg}>
-                <img src={attendance1} alt="attendance1" />
-                <span>Time & Attendance</span>
-              </div>
-              <span className={styles.chevronRight}>
-                <img src={chevronRight} alt="chevronRight" />
-              </span>
+            onClick={() => toggleMenu("TimeAndAttendance")}
+          >
+            <div className={styles.chevronRightDivimg}>
+              <img src={attendance1} alt="" />
+              <span>Time & Attendance</span>
             </div>
-            {showExtra === "TimeAndAttendance" && showExtraBl ? (
-              <ul
-                className={` ${
-                  showExtra === "TimeAndAttendance"
-                    ? styles.extraUiShow
-                    : styles.extraUi
-                } `}
-              >
-                <Link
-                  to="/Attendance/overview"
-                  onClick={() => showExtrnSubfn("overview")}
-                  className={`${active === "overview" ? styles.activeSub : ""}`}
-                >
-                  Overview
-                </Link>
-                <Link
-                  to="/Attendance/attendence"
-                  onClick={() => showExtrnSubfn("attendance")}
-                  className={`${
-                    active === "attendance" ? styles.activeSub : ""
-                  }`}
-                >
-                  Attendence
-                </Link>
-                <Link
-                  to="/Attendance/leave"
-                  onClick={() => showExtrnSubfn("leave")}
-                  className={`${active === "leave" ? styles.activeSub : ""}`}
-                >
-                  Leave
-                </Link>
-              </ul>
-            ) : null}
+            <img className={styles.chevronRight} src={chevronRight} alt="" />
           </div>
-        </Link>
-        <Link to="/Performance/overview">
-          <div className={styles.chevronRightDivContainer}>
-            <div
-              className={`${styles.chevronRightDiv} ${
-                showExtra === "Performance" ? styles.avtiveTab : ""
+
+          {openMenu === "TimeAndAttendance" && (
+            <ul className={styles.extraUiShow}>
+              <Link
+                to="/Attendance/overview"
+                className={activeSub === "overview" ? styles.activeSub : ""}
+                onClick={() => setActiveSub("overview")}
+              >
+                Overview
+              </Link>
+              <Link
+                to="/Attendance/attendence"
+                className={activeSub === "attendance" ? styles.activeSub : ""}
+                onClick={() => setActiveSub("attendance")}
+              >
+                Attendance
+              </Link>
+              <Link
+                to="/Attendance/leave"
+                className={activeSub === "leave" ? styles.activeSub : ""}
+                onClick={() => setActiveSub("leave")}
+              >
+                Leave
+              </Link>
+            </ul>
+          )}
+        </li>
+
+        <li className={styles.chevronRightDivContainer}>
+          <div
+            className={`${styles.chevronRightDiv} ${openMenu === "Performance" ? styles.avtiveTab : ""
               }`}
-              onClick={() => showExtraFn("Performance")}
-            >
-              <div className={styles.chevronRightDivimg}>
-                <img src={performance2} alt="performance2" />
-                <span>Performance</span>
-              </div>
-              <span className={styles.chevronRight}>
-                <img src={chevronRight} alt="chevronRight" />
-              </span>
+            onClick={() => toggleMenu("Performance")}
+          >
+            <div className={styles.chevronRightDivimg}>
+              <img src={performance2} alt="" />
+              <span>Performance</span>
             </div>
-            {showExtra === "Performance" && showExtraBl ? (
-              <ul
-                className={` ${
-                  showExtra === "Performance"
-                    ? styles.extraUiShow
-                    : styles.extraUi
-                } `}
-              >
-                <Link
-                  to="/Performance/overview"
-                  onClick={() => showExtrnSubfn("overview")}
-                  className={`${active === "overview" ? styles.activeSub : ""}`}
-                >
-                  Overview
-                </Link>
-                <Link
-                  to="/Performance/myGoal"
-                  onClick={() => showExtrnSubfn("GoalsPlan")}
-                  className={`${
-                    active === "GoalsPlan" ? styles.activeSub : ""
-                  }`}
-                >
-                  Goals Plan
-                </Link>
-                <Link
-                  to="/Performance/keyResults"
-                  onClick={() => showExtrnSubfn("keyResults")}
-                  className={`${
-                    active === "keyResults" ? styles.activeSub : ""
-                  }`}
-                >
-                  Goals / key Results Area Explorer
-                </Link>
-                <Link
-                  to="/Performance/Review"
-                  onClick={() => showExtrnSubfn("Review")}
-                  className={`${active === "Review" ? styles.activeSub : ""}`}
-                >
-                  Review
-                </Link>
-                <Link
-                  to="/Performance/MSF"
-                  onClick={() => showExtrnSubfn("MSF")}
-                  className={`${active === "MSF" ? styles.activeSub : ""}`}
-                >
-                  MSF
-                </Link>
-                <Link
-                  to="/Performance/Feedback"
-                  onClick={() => showExtrnSubfn("Feedback")}
-                  className={`${active === "Feedback" ? styles.activeSub : ""}`}
-                >
-                  Feedback
-                </Link>
-                <Link
-                  to="/Performance/Assessment"
-                  onClick={() => showExtrnSubfn("Assessment")}
-                  className={`${
-                    active === "Assessment" ? styles.activeSub : ""
-                  }`}
-                >
-                  Assessment History
-                </Link>
-                <Link
-                  to="/Performance/MSFHistory"
-                  onClick={() => showExtrnSubfn("MSFHistory")}
-                  className={`${
-                    active === "MSFHistory" ? styles.activeSub : ""
-                  }`}
-                >
-                  MSF History
-                </Link>
-              </ul>
-            ) : null}
+            <img className={styles.chevronRight} src={chevronRight} alt="" />
           </div>
-        </Link>
-        <Link to="/Reimbursement/overview">
-          <div className={styles.chevronRightDivContainer}>
-            <div
-              className={`${styles.chevronRightDiv} ${
-                showExtra === "Reimbursement" ? styles.avtiveTab : ""
+
+          {openMenu === "Performance" && (
+            <ul className={styles.extraUiShow}>
+              <Link to="/Performance/overview" className={activeSub === "overview" ? styles.activeSub : ""} onClick={() => setActiveSub("overview")}>Overview</Link>
+              <Link to="/Performance/myGoal" className={activeSub === "GoalsPlan" ? styles.activeSub : ""} onClick={() => setActiveSub("GoalsPlan")}>Goals Plan</Link>
+              <Link to="/Performance/keyResults" className={activeSub === "keyResults" ? styles.activeSub : ""} onClick={() => setActiveSub("keyResults")}>Key Results</Link>
+              <Link to="/Performance/Review" className={activeSub === "Review" ? styles.activeSub : ""} onClick={() => setActiveSub("Review")}>Review</Link>
+              <Link to="/Performance/MSF" className={activeSub === "MSF" ? styles.activeSub : ""} onClick={() => setActiveSub("MSF")}>MSF</Link>
+              <Link to="/Performance/Feedback" className={activeSub === "Feedback" ? styles.activeSub : ""} onClick={() => setActiveSub("Feedback")}>Feedback</Link>
+              <Link to="/Performance/Assessment" className={activeSub === "Assessment" ? styles.activeSub : ""} onClick={() => setActiveSub("Assessment")}>Assessment History</Link>
+              <Link to="/Performance/MSFHistory" className={activeSub === "MSFHistory" ? styles.activeSub : ""} onClick={() => setActiveSub("MSFHistory")}>MSF History</Link>
+            </ul>
+          )}
+        </li>
+
+        <li className={styles.chevronRightDivContainer}>
+          <div
+            className={`${styles.chevronRightDiv} ${openMenu === "Reimbursement" ? styles.avtiveTab : ""
               }`}
-              onClick={() => showExtraFn("Reimbursement")}
-            >
-              <div className={styles.chevronRightDivimg}>
-                <img src={travel} alt="Reimbursement" />
-                <span>Reimbursement</span>
-              </div>
-              <span className={styles.chevronRight}>
-                <img src={chevronRight} alt="chevronRight" />
-              </span>
+            onClick={() => toggleMenu("Reimbursement")}
+          >
+            <div className={styles.chevronRightDivimg}>
+              <img src={travel} alt="" />
+              <span>Reimbursement</span>
             </div>
-            {showExtra === "Reimbursement" && showExtraBl ? (
-              <ul
-                className={` ${
-                  showExtra === "Reimbursement"
-                    ? styles.extraUiShow
-                    : styles.extraUi
-                } `}
-              >
-                <Link
-                  to="/Reimbursement/overview"
-                  onClick={() => showExtrnSubfn("overview")}
-                  className={`${
-                    active === "overview" && showExtra === "Reimbursement"
-                      ? styles.activeSub
-                      : ""
-                  }`}
-                >
-                  Overview
-                </Link>
-                <Link
-                  to="/Reimbursement/Reimbursement"
-                  onClick={() => showExtrnSubfn("Reimbursement")}
-                  className={`${
-                    active === "Reimbursement" && showExtra === "Reimbursement"
-                      ? styles.activeSub
-                      : ""
-                  }`}
-                >
-                  Reimbursement
-                </Link>
-                <Link
-                  to="/Reimbursement/Advances"
-                  onClick={() => showExtrnSubfn("Advances")}
-                  className={`${active === "Advances" ? styles.activeSub : ""}`}
-                >
-                  Advances
-                </Link>
-              </ul>
-            ) : null}
+            <img className={styles.chevronRight} src={chevronRight} alt="" />
           </div>
-        </Link>
-        <Link to="/Interviews">
-          <div className={styles.chevronRightDivContainer}>
-            <div
-              className={`${styles.chevronRightDiv} ${
-                showExtra === "Interviews" ? styles.avtiveTab : ""
-              }`}
-              onClick={() => showExtraFn("Interviews")}
-            >
-              <div className={styles.chevronRightDivimg}>
-                <img src={travel} alt="Interviews" />
-                <span>Interviews</span>
-              </div>
-              <span className={styles.chevronRight}>
-                <img src={chevronRight} alt="chevronRight" />
-              </span>
-            </div>
-            {showExtra === "Interviews" && showExtraBl ? (
-              <ul
-                className={` ${
-                  showExtra === "Interviews"
-                    ? styles.extraUiShow
-                    : styles.extraUi
-                } `}
-              >
-                <Link
-                  to="/Interviews"
-                  onClick={() => showExtrnSubfn("Interviews")}
-                  className={`${
-                    active === "Interviews" && showExtra === "Interviews"
-                      ? styles.activeSub
-                      : ""
-                  }`}
-                >
-                  individual FeedBack
-                </Link>
-                <Link
-                  to="/Interviews/candidate"
-                  onClick={() => showExtrnSubfn("candidate")}
-                  className={`${
-                    active === "candidate" && showExtra === "candidate"
-                      ? styles.activeSub
-                      : ""
-                  }`}
-                >
-                  candidate
-                </Link>
-              </ul>
-            ) : null}
-          </div>
-        </Link>
+
+          {openMenu === "Reimbursement" && (
+            <ul className={styles.extraUiShow}>
+              <Link to="/Reimbursement/overview" className={activeSub === "overview" ? styles.activeSub : ""} onClick={() => setActiveSub("overview")}>Overview</Link>
+              <Link to="/Reimbursement/Reimbursement" className={activeSub === "Reimbursement" ? styles.activeSub : ""} onClick={() => setActiveSub("Reimbursement")}>Reimbursement</Link>
+              <Link to="/Reimbursement/Advances" className={activeSub === "Advances" ? styles.activeSub : ""} onClick={() => setActiveSub("Advances")}>Advances</Link>
+            </ul>
+          )}
+        </li>
       </ul>
     </div>
   );

@@ -10,34 +10,39 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 import styles from "../../Performance/TabsTabs/PerformanceHistory.module.css";
 
-const MOCK = [
-  {
-    id: "1",
-    reviewCycleName: "Performance Review Cycle-July 2025",
-    completedDate: "14-08-2025",
-    goalsOverallRating: "--",
-    competenciesOverallRating: "--",
-    performanceReview: "--",
-    status: "active",
-  },
-  {
-    id: "2",
-    reviewCycleName: "Performance Review Cycle-2024",
-    completedDate: "06-05-2025",
-    goalsOverallRating: "3",
-    competenciesOverallRating: "--",
-    performanceReview: "--",
-    status: "completed",
-  },
-];
+/* -------------------- HELPERS -------------------- */
 
 function parseDateDMY(dateStr) {
   const [dd, mm, yyyy] = (dateStr || "01-01-1970").split("-").map(Number);
   return new Date(yyyy, mm - 1, dd);
 }
 
-export const FlowPaginationTable = ({
-  data = MOCK,
+function downloadCSV(rows) {
+  if (!rows || rows.length === 0) return;
+
+  const headers = Object.keys(rows[0]);
+  const csv = [
+    headers.join(","),
+    ...rows.map(row =>
+      headers.map(h => `"${row[h] ?? ""}"`).join(",")
+    )
+  ].join("\n");
+
+  const blob = new Blob([csv], { type: "text/csv" });
+  const url = window.URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "review-cycles.csv";
+  a.click();
+
+  window.URL.revokeObjectURL(url);
+}
+
+/* -------------------- COMPONENT -------------------- */
+
+const FlowPaginationTable = ({
+  data = [],
   searchText = "",
   onSearch,
   sortAsc,
@@ -48,30 +53,34 @@ export const FlowPaginationTable = ({
   expandedMap = {},
   getPageItems,
 }) => {
-  const [localSearch, setLocalSearch] = useState(searchText || "");
+  const [localSearch, setLocalSearch] = useState(searchText);
+  const [masked, setMasked] = useState(false);
+  const [openSettings, setOpenSettings] = useState(false);
 
-  useEffect(() => {
-    setLocalSearch(searchText || "");
-  }, [searchText]);
+  /* -------------------- SEARCH -------------------- */
 
   useEffect(() => {
     const t = setTimeout(() => {
-      if (typeof onSearch === "function") onSearch(localSearch);
-    }, 250);
+      onSearch?.(localSearch);
+    }, 300);
     return () => clearTimeout(t);
   }, [localSearch, onSearch]);
 
-  const q = (localSearch || "").toLowerCase().trim();
+  const q = localSearch.toLowerCase().trim();
+
+  /* -------------------- FILTER + SORT -------------------- */
 
   const filtered = useMemo(() => {
-    const arr = (data || []).filter((r) =>
-      (r.reviewCycleName || "").toLowerCase().includes(q)
+    const arr = data.filter(d =>
+      d.reviewCycleName?.toLowerCase().includes(q)
     );
+
     arr.sort((a, b) => {
       const da = parseDateDMY(a.completedDate);
       const db = parseDateDMY(b.completedDate);
       return sortAsc ? da - db : db - da;
     });
+
     return arr;
   }, [data, q, sortAsc]);
 
@@ -80,13 +89,14 @@ export const FlowPaginationTable = ({
   const pageItems = filtered.slice(start, start + perPage);
 
   useEffect(() => {
-    if (typeof getPageItems === "function") getPageItems(total);
+    getPageItems?.(total);
   }, [total, getPageItems]);
 
-  const noop = () => {};
+  /* -------------------- UI -------------------- */
 
   return (
     <div className={styles.tableWrap}>
+      {/* TOP BAR */}
       <div className={styles.tableHeader}>
         <div className={styles.searchActions}>
           <div className={styles.searchBox}>
@@ -99,49 +109,60 @@ export const FlowPaginationTable = ({
           </div>
 
           <div className={styles.topIcons}>
-            <button className={styles.iconBtn} onClick={noop}>
+            {/* SORT */}
+            <button className={styles.iconBtn} onClick={toggleSort}>
               <FilterListIcon />
             </button>
 
-            <button className={styles.iconBtn} onClick={noop}>
+            {/* SETTINGS */}
+            <button
+              className={styles.iconBtn}
+              onClick={() => setOpenSettings(true)}
+            >
               <SettingsIcon />
             </button>
 
-            <button className={styles.iconBtn} onClick={noop}>
+            {/* MASK */}
+            <button
+              className={styles.iconBtn}
+              onClick={() => setMasked(m => !m)}
+            >
               <VisibilityIcon />
             </button>
 
-            <button className={styles.iconBtn} onClick={noop}>
+            {/* DOWNLOAD ALL */}
+            <button
+              className={styles.iconBtn}
+              onClick={() => downloadCSV(filtered)}
+            >
               <CloudDownloadIcon />
             </button>
           </div>
         </div>
 
+        {/* TABLE */}
         <table className={styles.table}>
           <thead>
             <tr>
-              <th style={{ width: 36 }}></th>
+              <th style={{ width: 36 }} />
               <th>Review Cycle Name</th>
-
               <th onClick={toggleSort} className={styles.sortable}>
-                Completed Date
-                <span className={styles.sortArrow}>{sortAsc ? "▲" : "▼"}</span>
+                Completed Date {sortAsc ? "▲" : "▼"}
               </th>
-
-              <th>Goals Overall Rating</th>
-              <th>Competencies Overall Rating</th>
+              <th>Goals Rating</th>
+              <th>Competencies Rating</th>
               <th>Performance Review</th>
-              <th style={{ width: 96 }}>Actions</th>
+              <th style={{ width: 90 }}>Actions</th>
             </tr>
           </thead>
 
           <tbody>
             {pageItems.map((row) => {
-              const expanded = !!expandedMap[row.id];
+              const expanded = expandedMap[row.id];
               return (
                 <React.Fragment key={row.id}>
-                  <tr className={styles.row}>
-                    <td className={styles.expandCell}>
+                  <tr>
+                    <td>
                       <button
                         className={styles.expandBtn}
                         onClick={() => onToggleExpand(row.id)}
@@ -150,24 +171,22 @@ export const FlowPaginationTable = ({
                       </button>
                     </td>
 
-                    <td className={styles.nameCell}>
-                      <div className={styles.nameText}>{row.reviewCycleName}</div>
-                    </td>
-
-                    <td>{row.completedDate}</td>
-
+                    <td>{row.reviewCycleName}</td>
+                    <td>{masked ? "****" : row.completedDate}</td>
                     <td>
-                      {row.goalsOverallRating}
-                      {row.goalsOverallRating !== "--" && (
-                        <InfoOutlined className={styles.infoIcon} fontSize="small" />
+                      {masked ? "****" : row.goalsOverallRating}
+                      {row.goalsOverallRating !== "--" && !masked && (
+                        <InfoOutlined fontSize="small" />
                       )}
                     </td>
+                    <td>{masked ? "****" : row.competenciesOverallRating}</td>
+                    <td>{masked ? "****" : row.performanceReview}</td>
 
-                    <td>{row.competenciesOverallRating}</td>
-                    <td>{row.performanceReview}</td>
-
-                    <td className={styles.actionsCell}>
-                      <button className={styles.rowAction} onClick={noop}>
+                    <td>
+                      <button
+                        className={styles.rowAction}
+                        onClick={() => downloadCSV([row])}
+                      >
                         <CloudDownloadIcon />
                       </button>
                     </td>
@@ -176,13 +195,8 @@ export const FlowPaginationTable = ({
                   {expanded && (
                     <tr className={styles.expandedRow}>
                       <td />
-                      <td colSpan={7} className={styles.expandedContent}>
-                        <div>
-                          <strong>Additional Details Coming Soon...</strong>
-                          <div className={styles.placeholderText}>
-                            Placeholder content for expanded row.
-                          </div>
-                        </div>
+                      <td colSpan={6}>
+                        <strong>Additional Details Coming Soon...</strong>
                       </td>
                     </tr>
                   )}
@@ -192,14 +206,31 @@ export const FlowPaginationTable = ({
 
             {pageItems.length === 0 && (
               <tr>
-                <td colSpan={7} style={{ textAlign: "center", padding: 24 }}>
-                  No records found.
+                <td colSpan={7} style={{ textAlign: "center", padding: 20 }}>
+                  No records found
                 </td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
+
+      {/* SETTINGS MODAL */}
+      {openSettings && (
+        <div className={styles.modalBackdrop}>
+          <div className={styles.modal}>
+            <h3>Table Settings</h3>
+
+            <label>
+              <input type="checkbox" checked readOnly /> Show Ratings
+            </label>
+
+            <div style={{ marginTop: 16 }}>
+              <button onClick={() => setOpenSettings(false)}>Close</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

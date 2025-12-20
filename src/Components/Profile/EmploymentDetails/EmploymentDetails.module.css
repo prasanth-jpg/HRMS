@@ -54,6 +54,9 @@
     gap: 30px;
     padding: 10px;
 }
+.location{
+    font-size: 1rem;
+}
 .officelocation{
     font-size: 18px;
     font-weight: 600;

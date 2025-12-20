@@ -11,10 +11,12 @@ import { styled } from "@mui/material/styles";
 import AddGoals from "../../TimeManagemnet/AddGoals/AddGoals";
 
 const MyGoal = () => {
-  const [showValues, setShowValues] = useState(false); 
+  const [showValues, setShowValues] = useState(false);
   const [isOpenAddGoals, setIsOpenAddGoals] = useState(false);
-
   const [openIndex, setOpenIndex] = useState(null);
+  const [openIndexMore, setOpenIndexMore] = useState(null);
+  const [openIndexMore1, setOpenIndexMore1] = useState(null);
+
 
   const toggleDetails = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -50,6 +52,23 @@ const MyGoal = () => {
       backgroundColor: "#d3d6da",
     },
   }));
+
+  const handleEditContent = (index) => {
+    console.log(`Editing content for pillar ${index}`);
+  };
+
+  const toggleMoreOptions = (index) => {
+    setOpenIndexMore((prev) => !prev);
+    setOpenIndexMore1(index)
+  };
+
+  const handleMarkComplete = (index) => {
+    console.log(`Marking pillar ${index} as completed`);
+  };
+
+  const handleDeleteGoal = (index) => {
+    console.log(`Deleting goal ${index}`);
+  };
 
   return (
     <div className={styles.container}>
@@ -126,7 +145,6 @@ const MyGoal = () => {
         </div>
 
         <div className={styles.pillars}>
-
           <div className={styles.pillar}>
             <div className={styles.pillarinpro}>
               <h4>Quality & Delivery Excellence</h4>
@@ -140,10 +158,66 @@ const MyGoal = () => {
 
             <div className={styles.pillarweibtn2}>
               <div className={styles.pillarweibtnimg}>
-                <img src={addicon} />
-                <img src={pencile} />
-                <img src={more} />
+                <img
+                  src={addicon}
+                  alt="Add Goal"
+                  onClick={() => setIsOpenAddGoals(true)}
+                  style={{ cursor: 'pointer' }}
+                />
+                <img
+                  src={pencile}
+                  alt="Edit Content"
+                  onClick={() => setIsOpenAddGoals(true)}
+                  style={{ cursor: 'pointer' }}
+                />
+                <div className={styles.openmore1more}>
+                  <img
+                  src={more}
+                  alt="More Options"
+                  onClick={() => toggleMoreOptions(0)}
+                  style={{ cursor: 'pointer' }}
+                />
+                {openIndexMore && openIndexMore1=== 0 && <div className={styles.openmore}>
+                  <div className={styles.openmore1}>
+                    <div className={styles.openmore2}> <img
+                      src={addicon}
+                      alt="Add Goal"
+                      onClick={() => setIsOpenAddGoals(true)}
+                      style={{ cursor: 'pointer' }}
+                    />
+                      <p>Open Goals</p></div>
+                  </div>
+                  <div className={styles.openmore1}>
+                    <div className={styles.openmore2}> <img
+                      src={pencile}
+                      alt="Add Goal"
+                      onClick={() => setIsOpenAddGoals(true)}
+                      style={{ cursor: 'pointer' }}
+                    />
+                      <p>Edit Goals</p></div>
+                  </div>
+                  <div className={styles.openmore1}>
+                    <div className={styles.openmore2}> <img
+                      src={more}
+                      alt="Add Goal"
+                      onClick={() => setIsOpenAddGoals(true)}
+                      style={{ cursor: 'pointer' }}
+                    />
+                      <p>Open Goals</p></div>
+                  </div>
+                </div>}
+
+                </div>
               </div>
+
+
+              {openIndex === 0 && (
+                <div className={styles.moreOptionsBox}>
+                  <button onClick={() => handleMarkComplete(0)}>Mark as Completed</button>
+                  <button onClick={() => handleDeleteGoal(0)}>Delete Goal</button>
+                </div>
+              )}
+
               <button
                 className={styles.detailsButton}
                 onClick={() => toggleDetails(0)}
@@ -174,6 +248,10 @@ const MyGoal = () => {
             </div>
           )}
 
+
+
+        </div>
+        <div className={styles.pillars}>
           <div className={styles.pillar}>
             <div className={styles.pillarinpro}>
               <h4>Process Efficiency & Automation</h4>
@@ -182,10 +260,71 @@ const MyGoal = () => {
 
             <div className={styles.pillarwei}>
               <p>Weightage</p>
-              <p>30%</p>
+              <p>20%</p>
             </div>
 
             <div className={styles.pillarweibtn2}>
+              <div className={styles.pillarweibtnimg}>
+                <img
+                  src={addicon}
+                  alt="Add Goal"
+                  onClick={() => setIsOpenAddGoals(true)}
+                  style={{ cursor: 'pointer' }}
+                />
+                <img
+                  src={pencile}
+                  alt="Edit Content"
+                  onClick={() => setIsOpenAddGoals(true)}
+                  style={{ cursor: 'pointer' }}
+                />
+               <div className={styles.openmore1more}>
+                  <img
+                  src={more}
+                  alt="More Options"
+                  onClick={() => toggleMoreOptions(1)}
+                  style={{ cursor: 'pointer' }}
+                />
+                {openIndexMore  && openIndexMore1=== 1 && <div className={styles.openmore}>
+                  <div className={styles.openmore1}>
+                    <div className={styles.openmore2}> <img
+                      src={addicon}
+                      alt="Add Goal"
+                      onClick={() => setIsOpenAddGoals(true)}
+                      style={{ cursor: 'pointer' }}
+                    />
+                      <p>Open Goals</p></div>
+                  </div>
+                  <div className={styles.openmore1}>
+                    <div className={styles.openmore2}> <img
+                      src={pencile}
+                      alt="Add Goal"
+                      onClick={() => setIsOpenAddGoals(true)}
+                      style={{ cursor: 'pointer' }}
+                    />
+                      <p>Edit Goals</p></div>
+                  </div>
+                  <div className={styles.openmore1}>
+                    <div className={styles.openmore2}> <img
+                      src={more}
+                      alt="Add Goal"
+                      onClick={() => setIsOpenAddGoals(true)}
+                      style={{ cursor: 'pointer' }}
+                    />
+                      <p>Open Goals</p></div>
+                  </div>
+                </div>}
+
+                </div>
+              </div>
+
+
+              {openIndex === 1 && (
+                <div className={styles.moreOptionsBox}>
+                  <button onClick={() => handleMarkComplete(0)}>Mark as Completed</button>
+                  <button onClick={() => handleDeleteGoal(0)}>Delete Goal</button>
+                </div>
+              )}
+
               <button
                 className={styles.detailsButton}
                 onClick={() => toggleDetails(1)}
@@ -197,8 +336,9 @@ const MyGoal = () => {
 
           {showValues && (
             <div className={styles.subGoals}>
-              <p>• Automate manual tasks</p>
-              <p>• Improve efficiency</p>
+              <p>• Reduce defect leakage</p>
+              <p>• Improve code quality</p>
+              <p>• Meet sprint timelines</p>
             </div>
           )}
 
@@ -206,11 +346,19 @@ const MyGoal = () => {
             <div className={styles.showDetailsContainer}>
               <div className={styles.detailRow}>
                 <span>Objective</span>
-                <span>Automate workflows</span>
+                <span>Improve delivery quality</span>
+              </div>
+              <div className={styles.detailRow}>
+                <span>Status</span>
+                <span>In Progress</span>
               </div>
             </div>
           )}
 
+
+
+        </div>
+        <div className={styles.pillars}>
           <div className={styles.pillar}>
             <div className={styles.pillarinpro}>
               <h4>Team Development & Engagement</h4>
@@ -219,10 +367,71 @@ const MyGoal = () => {
 
             <div className={styles.pillarwei}>
               <p>Weightage</p>
-              <p>30%</p>
+              <p>40%</p>
             </div>
 
             <div className={styles.pillarweibtn2}>
+              <div className={styles.pillarweibtnimg}>
+                <img
+                  src={addicon}
+                  alt="Add Goal"
+                  onClick={() => setIsOpenAddGoals(true)}
+                  style={{ cursor: 'pointer' }}
+                />
+                <img
+                  src={pencile}
+                  alt="Edit Content"
+                  onClick={() => setIsOpenAddGoals(true)}
+                  style={{ cursor: 'pointer' }}
+                />
+                <div className={styles.openmore1more}>
+                  <img
+                  src={more}
+                  alt="More Options"
+                  onClick={() => toggleMoreOptions(2)}
+                  style={{ cursor: 'pointer' }}
+                />
+                {openIndexMore  && openIndexMore1=== 2 && <div className={styles.openmore}>
+                  <div className={styles.openmore1}>
+                    <div className={styles.openmore2}> <img
+                      src={addicon}
+                      alt="Add Goal"
+                      onClick={() => setIsOpenAddGoals(true)}
+                      style={{ cursor: 'pointer' }}
+                    />
+                      <p>Open Goals</p></div>
+                  </div>
+                  <div className={styles.openmore1}>
+                    <div className={styles.openmore2}> <img
+                      src={pencile}
+                      alt="Add Goal"
+                      onClick={() => setIsOpenAddGoals(true)}
+                      style={{ cursor: 'pointer' }}
+                    />
+                      <p>Edit Goals</p></div>
+                  </div>
+                  <div className={styles.openmore1}>
+                    <div className={styles.openmore2}> <img
+                      src={more}
+                      alt="Add Goal"
+                      onClick={() => setIsOpenAddGoals(true)}
+                      style={{ cursor: 'pointer' }}
+                    />
+                      <p>Open Goals</p></div>
+                  </div>
+                </div>}
+
+                </div>
+              </div>
+
+
+              {openIndex === 2 && (
+                <div className={styles.moreOptionsBox}>
+                  <button onClick={() => handleMarkComplete(0)}>Mark as Completed</button>
+                  <button onClick={() => handleDeleteGoal(0)}>Delete Goal</button>
+                </div>
+              )}
+
               <button
                 className={styles.detailsButton}
                 onClick={() => toggleDetails(2)}
@@ -234,8 +443,9 @@ const MyGoal = () => {
 
           {showValues && (
             <div className={styles.subGoals}>
-              <p>• Improve team engagement</p>
-              <p>• Conduct training sessions</p>
+              <p>• Reduce defect leakage</p>
+              <p>• Improve code quality</p>
+              <p>• Meet sprint timelines</p>
             </div>
           )}
 
@@ -243,11 +453,19 @@ const MyGoal = () => {
             <div className={styles.showDetailsContainer}>
               <div className={styles.detailRow}>
                 <span>Objective</span>
-                <span>Build strong teams</span>
+                <span>Improve delivery quality</span>
+              </div>
+              <div className={styles.detailRow}>
+                <span>Status</span>
+                <span>In Progress</span>
               </div>
             </div>
           )}
 
+
+
+        </div>
+        <div className={styles.pillars}>
           <div className={styles.pillar}>
             <div className={styles.pillarinpro}>
               <h4>Innovation & Continuous Improvement</h4>
@@ -260,9 +478,70 @@ const MyGoal = () => {
             </div>
 
             <div className={styles.pillarweibtn2}>
+              <div className={styles.pillarweibtnimg}>
+                <img
+                  src={addicon}
+                  alt="Add Goal"
+                  onClick={() => setIsOpenAddGoals(true)}
+                  style={{ cursor: 'pointer' }}
+                />
+                <img
+                  src={pencile}
+                  alt="Edit Content"
+                  onClick={() => setIsOpenAddGoals(true)}
+                  style={{ cursor: 'pointer' }}
+                />
+                <div className={styles.openmore1more}>
+                  <img
+                  src={more}
+                  alt="More Options"
+                  onClick={() => toggleMoreOptions(3)}
+                  style={{ cursor: 'pointer' }}
+                />
+                {openIndexMore  && openIndexMore1=== 3 && <div className={styles.openmore}>
+                  <div className={styles.openmore1}>
+                    <div className={styles.openmore2}> <img
+                      src={addicon}
+                      alt="Add Goal"
+                      onClick={() => setIsOpenAddGoals(true)}
+                      style={{ cursor: 'pointer' }}
+                    />
+                      <p>Open Goals</p></div>
+                  </div>
+                  <div className={styles.openmore1}>
+                    <div className={styles.openmore2}> <img
+                      src={pencile}
+                      alt="Add Goal"
+                      onClick={() => setIsOpenAddGoals(true)}
+                      style={{ cursor: 'pointer' }}
+                    />
+                      <p>Edit Goals</p></div>
+                  </div>
+                  <div className={styles.openmore1}>
+                    <div className={styles.openmore2}> <img
+                      src={more}
+                      alt="Add Goal"
+                      onClick={() => setIsOpenAddGoals(true)}
+                      style={{ cursor: 'pointer' }}
+                    />
+                      <p>Open Goals</p></div>
+                  </div>
+                </div>}
+
+                </div>
+              </div>
+
+
+              {openIndex === 3 && (
+                <div className={styles.moreOptionsBox}>
+                  <button onClick={() => handleMarkComplete(0)}>Mark as Completed</button>
+                  <button onClick={() => handleDeleteGoal(0)}>Delete Goal</button>
+                </div>
+              )}
+
               <button
                 className={styles.detailsButton}
-                onClick={() => toggleDetails(3)}
+                onClick={() => toggleDetails(4)}
               >
                 {openIndex === 3 ? "Hide Details" : "Show Details"}
               </button>
@@ -271,7 +550,9 @@ const MyGoal = () => {
 
           {showValues && (
             <div className={styles.subGoals}>
-              <p>• Encourage innovation ideas</p>
+              <p>• Reduce defect leakage</p>
+              <p>• Improve code quality</p>
+              <p>• Meet sprint timelines</p>
             </div>
           )}
 
@@ -279,10 +560,17 @@ const MyGoal = () => {
             <div className={styles.showDetailsContainer}>
               <div className={styles.detailRow}>
                 <span>Objective</span>
-                <span>Drive innovation</span>
+                <span>Improve delivery quality</span>
+              </div>
+              <div className={styles.detailRow}>
+                <span>Status</span>
+                <span>In Progress</span>
               </div>
             </div>
           )}
+
+
+
         </div>
       </div>
 

@@ -18,6 +18,16 @@ export default function Documents() {
 
   const [searchTerm, setSearchTerm] = useState("");
 
+  const showFilterfn=()=>{
+    setShowSettings(false)
+    setShowFilter(true)
+  }
+
+    const showSettingsfn=()=>{
+    setShowSettings(true)
+    setShowFilter(false)
+  }
+
   return (
     <div>
       <DocumentsTab active={activeTab} setActive={setActiveTab} />
@@ -35,14 +45,14 @@ export default function Documents() {
         <div className={styles.topIcons}>
           <button
             className={styles.iconBtn}
-            onClick={() => setShowFilter(!showFilter)}
+            onClick={() => showFilterfn()}
           >
             <FilterAltIcon />
           </button>
 
           <button
             className={styles.iconBtn}
-            onClick={() => setShowSettings(!showSettings)}
+            onClick={() => showSettingsfn()}
           >
             <SettingsIcon />
           </button>

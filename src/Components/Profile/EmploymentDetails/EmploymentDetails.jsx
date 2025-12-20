@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./EmploymentDetails.module.css";
-import { Switch, FormControlLabel } from "@mui/material";
+import { Switch, FormControlLabel, Dialog, DialogActions, DialogContent, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 const IOSSwitch = styled((props) => (
@@ -37,9 +37,21 @@ const IOSSwitch = styled((props) => (
 }));
 
 export default function EmploymentDetails() {
-    const [showValues, setShowValues]=useState(false)
+  const [showValues, setShowValues] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+
   const toggleShowValues = (event) => {
     setShowValues(event.target.checked);
+    if (event.target.checked) {
+      setOpenModal(true);
+    } else {
+      setOpenModal(false);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setShowValues(null)
   };
 
   return (
@@ -50,9 +62,7 @@ export default function EmploymentDetails() {
           <div className={styles.showValues}>
             <FormControlLabel
               labelPlacement="start"
-              control={
-                <IOSSwitch checked={showValues} onChange={toggleShowValues} />
-              }
+              control={<IOSSwitch checked={showValues} onChange={toggleShowValues} />}
               sx={{
                 marginLeft: "10px",
                 color: "#475569",
@@ -63,7 +73,7 @@ export default function EmploymentDetails() {
                 },
               }}
             />
-          </div>{" "}
+          </div>
           <p>Table View</p>
         </div>
       </div>
@@ -85,9 +95,47 @@ export default function EmploymentDetails() {
       <div className={styles.divider}></div>
       <div className={styles.officelocation}>Current Office Location</div>
       <div className={styles.location}>
-        <div>hyderabad</div>
-        <div>hyderabad</div>
+        <div>Hyderabad</div>
+        <div>Lorem ipsum dolor sit amet</div>
+        <div>Lorem ipsum dolor sit amet</div>
+        <div>Lorem ipsum dolor sit amet</div>
+        <div>Lorem ipsum dolor sit amet</div>
       </div>
+
+      <Dialog open={openModal} onClose={handleCloseModal}>
+        <DialogTitle>Employment Details (Table View)</DialogTitle>
+        <DialogContent>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Group Company</TableCell>
+                  <TableCell>Designation</TableCell>
+                  <TableCell>Department</TableCell>
+                  <TableCell>Staff Category</TableCell>
+                  <TableCell>Grade</TableCell>
+                  <TableCell>From - To</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell>ABC Corp</TableCell>
+                  <TableCell>Senior Executive</TableCell>
+                  <TableCell>Marketing</TableCell>
+                  <TableCell>Senior/Sr. Executive</TableCell>
+                  <TableCell>JGS</TableCell>
+                  <TableCell>2020 - Present</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseModal} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
