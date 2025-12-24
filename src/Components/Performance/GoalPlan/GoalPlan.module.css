@@ -29,7 +29,7 @@
   align-items: center;
 }
 .firstcontainerimg2 {
-  background: rgb(90, 197, 243);
+  background: rgb(180 220 237);
   padding: 5px;
   border-radius: 5px;
 }
@@ -83,7 +83,6 @@
 
 .imgbeni img {
   width: 20px;
-  background-color: #8bfc87;
   border-radius: 50%;
   padding: 4px;
 }

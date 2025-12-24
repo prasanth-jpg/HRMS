@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Feedback.module.css";
-import benifits1 from '../../../assets/benifits1.png'
+import continuous from '../../../assets/continuous.png'
 
 
 const Feedback = () => {
@@ -9,7 +9,7 @@ const Feedback = () => {
       <div className={styles.Feedbackcard}>
         <div className={styles.Feedback}>
           <div>
-            <img src={benifits1} />
+            <img src={continuous} />
           </div>
           <div className={styles.FeedbackTitle}>Feedback</div>
         </div>
