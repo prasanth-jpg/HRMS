@@ -131,7 +131,9 @@ export default function RequestFeedBack() {
                 placeholder="Enter your question"
               />
 
-              <button
+              <Button
+                          variant="outlined"
+
                 onClick={() => {
                   if (!questionsText.trim()) return;
                   setQuestions([...questions, questionsText]);
@@ -140,7 +142,7 @@ export default function RequestFeedBack() {
                 }}
               >
                 Add
-              </button>
+              </Button>
             </div>
           )}
 
