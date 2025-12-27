@@ -45,6 +45,9 @@ const Benefits = ({ showValues, setShowValues }) => {
 
   const handleFinancialYearChange = (event) => {
     setFinancialYear(event.target.value);
+    if (event.target.value === "2026-27") {
+      alert("2026-27 Not yet available")
+    }
   };
 
   const toggleShowValues = (event) => {
@@ -77,7 +80,7 @@ const Benefits = ({ showValues, setShowValues }) => {
               }}
               disableUnderline
             >
-              <MenuItem value="2025-26">2025-26</MenuItem>
+              <MenuItem value="2025-26" >2025-26</MenuItem>
               <MenuItem value="2026-27">2026-27</MenuItem>
               <MenuItem value="2027-28">2027-28</MenuItem>
             </Select>

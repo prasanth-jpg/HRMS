@@ -37,3 +37,15 @@
 .titleimage img {
   width: 25px;
 }
+
+.refer,.addResume{
+  color: rgb(122, 122, 246);
+  cursor: pointer;
+}
+
+.addResumeInput{
+  height: 30px;
+  border: 1px solid rgb(194, 191, 191);
+  width: 100%;
+  border-radius: 2px;
+}

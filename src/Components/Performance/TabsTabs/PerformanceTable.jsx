@@ -45,11 +45,11 @@ export const PerformanceTable = ({
   const [showValues, setShowValues] = useState(true);
   const [openFilter, setOpenFilter] = useState(false);
 
-   const onToggleExpand = (id) => {
+  const onToggleExpand = (id) => {
     setExpandedMap((p) => ({ ...p, [id]: !p[id] }));
   };
 
-   const filtered = useMemo(() => {
+  const filtered = useMemo(() => {
     return [...data].sort((a, b) => {
       const da = parseDateDMY(a.completedDate);
       const db = parseDateDMY(b.completedDate);
@@ -60,7 +60,7 @@ export const PerformanceTable = ({
   const start = (page - 1) * perPage;
   const pageItems = filtered.slice(start, start + perPage);
 
-   const downloadCSV = () => {
+  const downloadCSV = () => {
     const headers = Object.keys(data[0]).join(",");
     const rows = data.map((r) =>
       Object.values(r).join(",")
@@ -84,7 +84,7 @@ export const PerformanceTable = ({
         </div>
 
         <div className={styles.topIcons}>
-           <button
+          <button
             className={styles.iconBtn}
             title="Sort by date"
             onClick={() => setSortAsc((p) => !p)}
@@ -92,7 +92,7 @@ export const PerformanceTable = ({
             <FilterListIcon />
           </button>
 
-           <button
+          <button
             className={styles.iconBtn}
             title="Open filters"
             onClick={() => setOpenFilter(true)}
@@ -100,7 +100,7 @@ export const PerformanceTable = ({
             <SettingsIcon />
           </button>
 
-           <button
+          <button
             className={styles.iconBtn}
             title="Show / Hide values"
             onClick={() => setShowValues((p) => !p)}
@@ -108,7 +108,7 @@ export const PerformanceTable = ({
             {showValues ? <VisibilityIcon /> : <VisibilityOffIcon />}
           </button>
 
-           <button
+          <button
             className={styles.iconBtn}
             title="Download CSV"
             onClick={downloadCSV}
@@ -152,8 +152,8 @@ export const PerformanceTable = ({
                   <td>{mask(row.goalsOverallRating)}</td>
                   <td>{mask(row.competenciesOverallRating)}</td>
                   <td>{mask(row.performanceReview)}</td>
-                  <td>
-                    <CloudDownloadIcon />
+                  <td  >
+                    <CloudDownloadIcon onClick={downloadCSV} className={styles.expandBtndwnld} />
                   </td>
                 </tr>
 
@@ -171,7 +171,7 @@ export const PerformanceTable = ({
         </tbody>
       </table>
 
-       {openFilter && (
+      {openFilter && (
         <div className={styles.modalOverlay}>
           <div className={styles.modal}>
             <h3>Filters</h3>

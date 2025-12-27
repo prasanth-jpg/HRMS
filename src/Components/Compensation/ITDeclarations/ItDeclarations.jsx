@@ -1,11 +1,32 @@
-import { Button } from "@mui/material";
-import React, { useEffect, useState } from "react";
+ import React, { useEffect, useState } from "react";
 import styles from "./ItDeclarations.module.css";
 import TaxModal from "./TaxModal";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
 
 export const ItDeclarations = () => {
   const [activeHouseParty, setactiveHouseParty] = useState("");
   const [openCompareTax, setOpenCompareTax] = useState(false);
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const [openTxt, setOpenTxt] = React.useState("");
 
   useEffect(() => {
     setactiveHouseParty("HouseParty");
@@ -56,8 +77,8 @@ export const ItDeclarations = () => {
             Note: Negative Values in Amount indicates Amount paid and hence will be
             considered for exemption.
           </div>
-          <div className={styles.viewversions}>VIEW VERSIONS OF IT DECLARATION <span>(0)</span></div>
-          <div className={styles.viewversions}>VIEW VERSIONS OF POI <span>(0)</span></div>
+          <div className={styles.viewversions} onClick={() => { setOpenTxt("VERSIONS OF IT DECLARATION NOT AVAILABLE");setOpen(true) }}>VIEW VERSIONS OF IT DECLARATION <span>(0)</span></div>
+          <div className={styles.viewversions}  onClick={() => { setOpenTxt("VERSIONS OF POI NOT AVAILABLE");setOpen(true) }}>VIEW VERSIONS OF POI <span>(0)</span></div>
         </div>
       }
 
@@ -72,8 +93,8 @@ export const ItDeclarations = () => {
             Note: Negative Values in Amount indicates Amount paid and hence will be
             considered for exemption.
           </div>
-          <div className={styles.viewversions}>VIEW VERSIONS OF IT DECLARATION <span>(0)</span></div>
-          <div className={styles.viewversions}>VIEW VERSIONS OF POI <span>(0)</span></div>
+          <div className={styles.viewversions} onClick={() => { setOpenTxt("VERSIONS OF IT DECLARATION NOT AVAILABLE");setOpen(true) }}>VIEW VERSIONS OF IT DECLARATION <span>(0)</span></div>
+          <div className={styles.viewversions} onClick={() => { setOpenTxt("VERSIONS OF POI NOT AVAILABLE");setOpen(true) }}>VIEW VERSIONS OF POI <span>(0)</span></div>
         </div>
       }
 
@@ -88,12 +109,24 @@ export const ItDeclarations = () => {
             Note: Negative Values in Amount indicates Amount paid and hence will be
             considered for exemption.
           </div>
-          <div className={styles.viewversions}>VIEW VERSIONS OF IT DECLARATION <span>(0)</span></div>
-          <div className={styles.viewversions}>VIEW VERSIONS OF POI <span>(0)</span></div>
+          <div className={styles.viewversions} onClick={() => { setOpenTxt("VERSIONS OF IT DECLARATION NOT AVAILABLE");setOpen(true) }}>VIEW VERSIONS OF IT DECLARATION <span>(0)</span></div>
+          <div className={styles.viewversions} onClick={() => { setOpenTxt("VERSIONS OF POI NOT AVAILABLE");setOpen(true) }}>VIEW VERSIONS OF POI <span>(0)</span></div>
         </div>
       }
 
       <TaxModal openCompareTax={openCompareTax} setOpenCompareTax={setOpenCompareTax} />
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            <p className={styles.addResume}>{openTxt}</p>
+          </Typography>
+        </Box>
+      </Modal>
     </div>
   );
 };

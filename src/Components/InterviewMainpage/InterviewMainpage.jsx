@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import emptyOvertime from "../../assets/emptyOvertime.png";
 
@@ -7,6 +7,7 @@ import Priorities from "./Priorities";
 import { Refferals } from "./Refferals";
 
 export default function InterviewMainpage() {
+  const[openNewHire,setOpenNewHire]=useState(false)
   return (
     <div className={style.interviewMainpage}>
       <div className={style.image}>
@@ -30,10 +31,10 @@ export default function InterviewMainpage() {
             <p className={style.days}>Next 7 days</p>
           </div>
           <div className={style.cards1}>
-            <div className={style.cards}></div>
-            <div className={style.cards}></div>
-            <div className={style.cards}></div>{" "}
-            <div className={style.cards}></div>{" "}
+            <div className={style.cards}>Buddie 1</div>
+            <div className={style.cards}>Buddie 2</div>
+            <div className={style.cards}>Buddie 3</div>{" "}
+            <div className={style.cards}>Buddie 4</div>{" "}
           </div>
         </div>
         <div className={style.work}>
@@ -43,18 +44,20 @@ export default function InterviewMainpage() {
             <p className={style.days}>Next 7 days</p>
           </div>
           <div className={style.cards2}>
-            <div className={style.cards}></div>
-            <div className={style.cards}></div>
-            <div className={style.cards}></div>{" "}
-            <div className={style.cards}></div>{" "}
-            <div className={style.cards}></div>{" "}
-            <div className={style.cards}></div>{" "}
+            <div className={style.cards}>Buddie 1 Anniversary</div>
+            <div className={style.cards}>Buddie 2 Anniversary</div>
+            <div className={style.cards}>Buddie 3 Anniversary</div>{" "}
+            <div className={style.cards}>Buddie 4 Anniversary</div>{" "}
+            <div className={style.cards}>Buddie 5 Anniversary</div>{" "}
+            <div className={style.cards}>Buddie 6 Anniversary</div>{" "}
           </div>
         </div>
-        <div className={style.hires}>
+        <div className={style.hires} onClick={()=>{setOpenNewHire((prev)=>!prev)}}>
           <div className={style.newhires}>
             <p>New Hires (0)</p>
           </div>
+                  {openNewHire && <div  className={style.newhireSpace}>No New Hires</div>}
+
         </div>
       </div>
       <div className={style.image}>

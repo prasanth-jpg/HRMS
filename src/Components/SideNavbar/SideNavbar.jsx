@@ -9,12 +9,22 @@ import performance2 from "../../assets/performance2.png";
 import chevronRight from "../../assets/chevronRight.png";
 import travel from "../../assets/travel.png";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SideNavbar = () => {
   const [openMenu, setOpenMenu] = useState("");
   const [activeSub, setActiveSub] = useState("");
+  const navigate = useNavigate();
 
   const toggleMenu = (menu) => {
+
+    if (menu === "Profile") navigate("/Profile/Overview");
+        if (menu === "Flow") navigate("/Flow/flowRequest");
+        if (menu === "TimeAndAttendance") navigate("/Attendance/overview");
+        if (menu === "Performance") navigate("/Performance/overview");
+        if (menu === "Reimbursement") navigate("/Reimbursement/overview");
+        if (menu === "Interviews") navigate("/Interviews");
+
     setOpenMenu((prev) => {
       const isClosing = prev === menu;
 
@@ -55,7 +65,7 @@ const SideNavbar = () => {
       </div>
 
       <ul className={styles.Menu}>
-        <li className={styles.chevronRightDivContainer}>
+        <li className={styles.chevronRightDivContainer} onClick={()=>na}>
           <div
             className={`${styles.chevronRightDiv} ${openMenu === "Profile" ? styles.avtiveTab : ""
               }`}
@@ -248,6 +258,27 @@ const SideNavbar = () => {
               <Link to="/Reimbursement/overview" className={activeSub === "overview" ? styles.activeSub : ""} onClick={() => setActiveSub("overview")}>Overview</Link>
               <Link to="/Reimbursement/Reimbursement" className={activeSub === "Reimbursement" ? styles.activeSub : ""} onClick={() => setActiveSub("Reimbursement")}>Reimbursement</Link>
               <Link to="/Reimbursement/Advances" className={activeSub === "Advances" ? styles.activeSub : ""} onClick={() => setActiveSub("Advances")}>Advances</Link>
+            </ul>
+          )}
+        </li>
+
+        <li className={styles.chevronRightDivContainer}>
+          <div
+            className={`${styles.chevronRightDiv} ${openMenu === "Interviews" ? styles.avtiveTab : ""
+              }`}
+            onClick={() => toggleMenu("Interviews")}
+          >
+            <div className={styles.chevronRightDivimg}>
+              <img src={travel} alt="" />
+              <span>Interview</span>
+            </div>
+            <img className={styles.chevronRight} src={chevronRight} alt="" />
+          </div>
+
+          {openMenu === "Interviews" && (
+            <ul className={styles.extraUiShow}>
+              <Link to="/Interviews " className={activeSub === "Interviews" ? styles.activeSub : ""} onClick={() => setActiveSub("Interviews")}>Interviews</Link>
+              <Link to="/Interviews/candidate" className={activeSub === "candidate" ? styles.activeSub : ""} onClick={() => setActiveSub("candidate")}>candidate</Link>
             </ul>
           )}
         </li>

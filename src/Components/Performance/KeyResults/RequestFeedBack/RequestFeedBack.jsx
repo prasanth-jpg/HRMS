@@ -70,8 +70,8 @@ export default function RequestFeedBack() {
       prev.includes(goal) ? prev.filter((g) => g !== goal) : [...prev, goal]
     );
   };
-  const handleCancel= ()=>{
-  setSelected("")
+  const handleCancel = () => {
+    setSelected("")
   }
 
 
@@ -80,27 +80,24 @@ export default function RequestFeedBack() {
     <div className={styles.container}>
       <aside className={styles.sidebar}>
         <div
-          className={`${styles.sidebarItem} ${
-            activeQns === "Overall" ? styles.active : ""
-          }`}
+          className={`${styles.sidebarItem} ${activeQns === "Overall" ? styles.active : ""
+            }`}
           onClick={() => setActiveQns("Overall")}
         >
           Overall Remarks
         </div>
 
         <div
-          className={`${styles.sidebarItem} ${
-            activeQns === "Questions" ? styles.active : ""
-          }`}
+          className={`${styles.sidebarItem} ${activeQns === "Questions" ? styles.active : ""
+            }`}
           onClick={() => setActiveQns("Questions")}
         >
           Questions
         </div>
 
         <div
-          className={`${styles.sidebarItem} ${
-            activeQns === "Goals" ? styles.active : ""
-          }`}
+          className={`${styles.sidebarItem} ${activeQns === "Goals" ? styles.active : ""
+            }`}
           onClick={() => setActiveQns("Goals")}
         >
           Goals / Key Result Areas
@@ -118,11 +115,6 @@ export default function RequestFeedBack() {
           >
             + Add Question
           </Button>
-          {/* <div className={styles.qnes}>Questions</div>
-            <div className={styles.meDiver}></div>
-            <div className={styles.addYourown}>
-                <Button variant='outlined'>+ Add your own question</Button>
-            </div> */}
           {questionsInput && (
             <div className={styles.addBox}>
               <input
@@ -132,7 +124,7 @@ export default function RequestFeedBack() {
               />
 
               <Button
-                          variant="outlined"
+                variant="outlined"
 
                 onClick={() => {
                   if (!questionsText.trim()) return;
@@ -205,7 +197,7 @@ export default function RequestFeedBack() {
           </div>
 
           <div className={styles.actions}>
-            <button className={styles.cancelBtn}  onClick={handleCancel}>Cancel</button>
+            <button className={styles.cancelBtn} onClick={handleCancel}>Cancel</button>
             <button
               className={styles.submitBtn}
               onClick={() => {

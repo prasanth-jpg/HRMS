@@ -112,6 +112,7 @@
 
 .viewversions {
   color: rgb(144 134 255);
+  cursor: pointer;
 }
 
 .viewversions span {

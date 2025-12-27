@@ -56,35 +56,8 @@ export default function OverallRemark() {
                         <div className={`${styles.selectVisibiltyOptn2} ${activeVisi === "onlyMe" ? styles.activeVisibtn : ""}`} onClick={() => setActiveVisi("onlyMe")}>Only Me</div>
                     </div>
                 </div>
-                <div className={styles.qnes}>Questions</div>
-                <div className={styles.meDiver}></div>
-                <div className={styles.questionList}>
-                    {questions.map((q, index) => (
-                        <div key={q.id} className={styles.questionItem}>
-                            <input
-                                type="text"
-                                placeholder={`Question ${index + 1}`}
-                                value={q.text}
-                                onChange={(e) => updateQuestion(q.id, e.target.value)}
-                            />
-                            <IconButton onClick={() => deleteQuestion(q.id)}>
-                                <DeleteIcon />
-                            </IconButton>
-                        </div>
-                    ))}
-                </div>
-
-                <div className={styles.addYourown}>
-                    <Button variant='outlined' onClick={addQuestion}>
-                        + Add your own question
-                    </Button>
-                </div>
             </div>
-            {/* <div className={styles.qnes}>Questions</div>
-            <div className={styles.meDiver}></div>
-            <div className={styles.addYourown}>
-                <Button variant='outlined'>+ Add your own question</Button>
-            </div> */}
+
         </div>
     )
 }
