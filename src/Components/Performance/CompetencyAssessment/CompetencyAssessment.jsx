@@ -20,16 +20,16 @@ export const CompetencyAssessment = ({ searchText }) => {
           />
         </div>
         <div className={styles.topIcons}>
-          <button className={styles.iconBtn}>
+          <button className={styles.iconBtn} onClick={()=>alert("Data Not Found")}>
             <FilterListIcon />
           </button>
-          <button className={styles.iconBtn}>
+          <button className={styles.iconBtn} onClick={()=>alert("Data Not Found")}>
             <SettingsIcon />
           </button>
-          <button className={styles.iconBtn}>
+          <button className={styles.iconBtn} onClick={()=>alert("Data Not Found")}>
             <VisibilityIcon />
           </button>
-          <button className={styles.iconBtn}>
+          <button className={styles.iconBtn} onClick={()=>alert("Data Not Found")}>
             <CloudDownloadIcon />
           </button>
         </div>
