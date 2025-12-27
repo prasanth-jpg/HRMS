@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Activity.module.css";
-import singleabsent from "../../../assets/singleabsent.png";
+import activity2 from "../../../assets/activity2.png";
 import img from "../../../assets/Activity.png";
 
 const Activity = () => {
@@ -8,7 +8,7 @@ const Activity = () => {
     <div className={styles.ActivityContainer}>
       <div className={styles.Activity}>
         <div>
-          <img src={singleabsent} />
+          <img src={activity2} />
         </div>
         <div className={styles.ActivityTitledays}>
         <div className={styles.ActivityTitle}>Activity</div>

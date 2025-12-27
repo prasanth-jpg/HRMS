@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./OpenTask.module.css";
-import listview from "../../../assets/listview.png";
-import benifits1 from "../../../assets/benifits1.png";
+ import rightmark from "../../../assets/rightmark.png";
+import filtergray from "../../../assets/filter_gray.png";
 
 const OpenTask = () => {
   const [buttons, setButtons] = useState("");
@@ -33,7 +33,7 @@ const OpenTask = () => {
     <div className={styles.OpenTaskContainer}>
       <div className={styles.OpenTask}>
         <div className={styles.OpenTaskdiv}>
-          <img src={benifits1} alt="icon" />
+          <img src={rightmark} alt="icon" />
           <div>Open Tasks</div>
         </div>
 
@@ -66,12 +66,12 @@ const OpenTask = () => {
           </div>
 
           <div
-            className={`${styles.buttons} ${
+            className={`${styles.filtergray} ${
               buttons === "filter" ? styles.activebtn : ""
             }`}
             onClick={() => activeButton("filter")}
           >
-            <img src={listview} alt="listview" />
+            <img className={styles.filtergrayimg} src={filtergray} alt="filtergray" />
           </div>
         </div>
       </div>

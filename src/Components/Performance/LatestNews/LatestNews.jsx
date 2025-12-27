@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./LatestNews.module.css";
-import benifits1 from "../../../assets/benifits1.png";
+import latestfeedback from "../../../assets/latest-feedback.png";
 import { Button, Modal, Box, TextField } from "@mui/material";
 
 const modalStyle = {
@@ -24,7 +24,7 @@ const LatestNews = () => {
       <div className={styles.LatestNewsContainer}>
         <div className={styles.LatestNews}>
           <div>
-            <img src={benifits1} alt="icon" />
+            <img src={latestfeedback} alt="icon" />
           </div>
           <div className={styles.LatestNewsTitle}>Latest Notes</div>
         </div>

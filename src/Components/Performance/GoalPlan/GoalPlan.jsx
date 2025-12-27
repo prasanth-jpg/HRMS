@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import styles from "./GoalPlan.module.css";
 import { Button, Modal, Box, TextField } from "@mui/material";
-import benifits1 from "../../../assets/benifits1.png";
+import keygoal from "../../../assets/keygoal.png";
+import right from "../../../assets/right.png";
+import clock from "../../../assets/clock.png";
+import pause from "../../../assets/pause.png";
+import alertircle from "../../../assets/alertircle.png";
+import dashcircle from "../../../assets/dashcircle.png";
+import notstarted from "../../../assets/notstarted.png";
+
 
 const modalStyle = {
   position: "absolute",
@@ -25,12 +32,30 @@ export default function GoalPlan() {
   const handleClose = () => setOpen(false);
 
   const statusLabels = [
-    "Completed",
-    "In Progress",
-    "On Hold",
-    "On Rsld",
-    "Delayed",
-    "Not Satled",
+    {
+      name:"Completed",
+      img:right
+    },
+    {
+      name:"In Progress",
+      img:clock
+    },
+    {
+      name:"On Hold",
+      img:pause
+    },
+    {
+      name:"On Rsld",
+      img:alertircle
+    },
+    {
+      name:"Delayed",
+      img:dashcircle
+    },
+    {
+      name:"Not Satled",
+      img:notstarted
+    },
   ];
 
   return (
@@ -39,7 +64,7 @@ export default function GoalPlan() {
         <div className={styles.firstcontainer}>
           <div className={styles.firstcontainerimg}>
             <div className={styles.firstcontainerimg2}>
-              <img src={benifits1} alt="Goal Icon" />
+              <img src={keygoal} alt="Goal Icon" />
             </div>
             <div>
               <p>Goal Plan</p>
@@ -69,11 +94,11 @@ export default function GoalPlan() {
               <div key={i} className={styles.imgbeniand}>
                 <div className={styles.imgbeni}>
                   <div>
-                    <img src={benifits1} alt={label} />
+                    <img src={label.img} alt={label} />
                   </div>
                   <div className={styles.imgbeni0}>0</div>
                 </div>
-                <div className={styles.imgbeni0s}>{label}</div>
+                <div className={styles.imgbeni0s}>{label.name}</div>
               </div>
             ))}
           </div>
