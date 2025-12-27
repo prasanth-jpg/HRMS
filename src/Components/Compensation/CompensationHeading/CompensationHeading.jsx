@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Switch, FormControlLabel } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import filter from "../../../assets/filter.png"
@@ -38,7 +38,7 @@ const IOSSwitch = styled((props) => (
     },
 }));
 
-const CompensationHeading = ({showValues, setShowValues}) => {
+const CompensationHeading = ({ showValues, setShowValues }) => {
     const [financialYear, setFinancialYear] = useState("2025-26");
 
     const handleFinancialYearChange = (event) => {
@@ -49,6 +49,14 @@ const CompensationHeading = ({showValues, setShowValues}) => {
         setShowValues(event.target.checked);
     };
 
+    useEffect(() => {
+        if (financialYear === "2026-27") {
+            alert("Will release on 2026 Financial Year")
+        }
+         else if (financialYear === "2027-28") {
+            alert("Will release on 2027 Financial Year")
+        }
+    }, [financialYear])
     return (
         <div className={styles.financialOverview}>
             <div className={styles.header}>
@@ -77,8 +85,7 @@ const CompensationHeading = ({showValues, setShowValues}) => {
                             <MenuItem value="2026-27">2026-27</MenuItem>
                             <MenuItem value="2027-28">2027-28</MenuItem>
                         </Select>
-                    </div>  
-
+                    </div>
                     <div className={styles.showValues}>
                         <FormControlLabel
                             label="Show Values"

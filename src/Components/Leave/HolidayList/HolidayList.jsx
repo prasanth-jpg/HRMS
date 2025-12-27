@@ -12,6 +12,9 @@ export default function HolidayList() {
 
   const [showFilter, setShowFilter] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [holidayType, setHolidayType] = useState("All");
+
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -26,32 +29,53 @@ export default function HolidayList() {
     { date: "01 OCT", holiday: "Navami", day: "Wednesday", type: "Optional Holiday" },
   ];
 
-  const filteredHolidays = holidays.filter((item) =>
-    item.holiday.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredHolidays = holidays
+    .filter((item) =>
+      item.holiday.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .filter((item) =>
+      holidayType === "All" ? true : item.type === holidayType
+    )
+    .sort((a, b) => {
+      if (sortOrder === "asc") {
+        return a.holiday.localeCompare(b.holiday);
+      } else {
+        return b.holiday.localeCompare(b.holiday);
+      }
+    });
 
   return (
     <div className={styles.mainContainer}>
-      
+
       <div className={styles.heading}>Holiday List - 2025</div>
 
       <div className={styles.searchActions}>
         <div className={styles.searchBox}>
           <SearchIcon fontSize="small" />
-          <input 
-            placeholder="Search Holiday..." 
+          <input
+            placeholder="Search Holiday..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
 
         <div className={styles.topIcons}>
-          <button className={styles.iconBtn} onClick={() => setShowFilter(true)}>
+          <button
+            className={styles.iconBtn}
+            onClick={() =>
+              setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"))
+            }
+          >
             <FilterListIcon />
           </button>
-          <button className={styles.iconBtn} onClick={() => setShowSettings(true)}>
+
+          <button
+            className={styles.iconBtn}
+            onClick={() => setShowSettings(true)}
+          >
             <SettingsIcon />
           </button>
+
         </div>
       </div>
 
@@ -97,6 +121,37 @@ export default function HolidayList() {
             )}
           </tbody>
         </table>
+        {showSettings && (
+          <div className={styles.requestOverlay}>
+            <div className={styles.requestModal}>
+              <h3>Filters</h3>
+
+              <div className={styles.holidayTypes}>
+                <label>Holiday Type</label>
+                <select
+                  value={holidayType}
+                  onChange={(e) => setHolidayType(e.target.value)}
+                >
+                  <option value="All">All</option>
+                  <option value="Holiday">Holiday</option>
+                  <option value="Optional Holiday">Optional Holiday</option>
+                </select>
+              </div>
+
+              <div className={styles.modalActions}>
+                <button className={styles.cnlceBtnModal}
+                  onClick={() => setShowSettings(false)}>Cancel</button>
+                <button
+                  className={styles.submitBtn}
+                  onClick={() => setShowSettings(false)}
+                >
+                  Apply
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
 
       {openRequest && (

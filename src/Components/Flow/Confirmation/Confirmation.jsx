@@ -7,7 +7,7 @@ import right from "../../../assets/right.png"
 
 export default function Confirmation() {
     const [hideInfo, setHideInfo] = useState("")
-    const [visible, setVisible]=useState('')
+    const [visible, setVisible] = useState('')
     const tableBodyItems = [
         {
             status: "Completed",
@@ -38,11 +38,33 @@ export default function Confirmation() {
             iconSee: eye
         },
     ]
+    function downloadCSV(rows) {
+        if (!rows || rows.length === 0) return;
 
-    const hideInfoFn=(i)=>{
-        const info = tableBodyItems;
-        const infoH = info.find((item,index)=>index === i);
-        setHideInfo(infoH)
+        const headers = Object.keys(rows[0]);
+        const csv = [
+            headers.join(","),
+            ...rows.map(row =>
+                headers.map(h => `"${row[h] ?? ""}"`).join(",")
+            )
+        ].join("\n");
+
+        const blob = new Blob([csv], { type: "text/csv" });
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "review-cycles.csv";
+        a.click();
+
+        window.URL.revokeObjectURL(url);
+    }
+
+    const hideInfoFn = (i) => {
+        // const info = tableBodyItems;
+        // const infoH = info.find((item,index)=>index === i);
+        setHideInfo(i)
+        setVisible((prev) => !prev)
     }
     return (
         <div className={styles.confirmation}>
@@ -73,18 +95,18 @@ export default function Confirmation() {
                         {tableBodyItems.map((res, i) => (
                             <tr>
                                 <div className={styles.statusevenadmin}>
-                                    <td className={styles.rightstauts}><img src={right} /><div>{res.status}</div></td>
+                                    <td className={styles.rightstauts}><img src={right} /><div>{hideInfo === i && visible ? "*****" : res.status}</div></td>
                                     <div className={styles.statuseven}>
-                                        <td>{res.event}</td>
-                                        <td>{res.admin}</td>
+                                        <td>{hideInfo === i && visible ? "*****" : res.event}</td>
+                                        <td>{hideInfo === i && visible ? "*****" : res.admin}</td>
                                     </div>
                                 </div>
                                 <div className={styles.statusevenadminbody}>
                                     <td>
-                                        <img src={eye} onClick={()=>hideInfoFn(i)}/>
+                                        <img src={eye} onClick={() => hideInfoFn(i)} />
                                     </td>
                                     <td className={styles.statusarrow}>
-                                        <img src={download} />
+                                        <img src={download} onClick={() => downloadCSV([res])} />
                                     </td>
                                 </div>
                             </tr>

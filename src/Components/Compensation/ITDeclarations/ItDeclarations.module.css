@@ -51,6 +51,10 @@
   font-weight: 400;
   font-size: 13px;
   padding: 0 5px 0 5px;
+      display: flex;
+    justify-content: center;
+    height: 30px;
+    align-items: center;
 }
 
 .FinancialYearParent {

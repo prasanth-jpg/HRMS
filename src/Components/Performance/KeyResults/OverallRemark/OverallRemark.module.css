@@ -90,3 +90,32 @@
     width: 100%;
   }
 }
+
+.questionList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.questionItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f9fafc;
+    padding: 10px 12px;
+    border-radius: 8px;
+}
+
+.questionItem input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    border: 1px solid rgb(218, 216, 216);
+    height: 30px;
+    border-radius: 5px;
+    padding: 4px;
+}.addYourown {
+    margin-top: 20px;
+    text-align: center;
+}

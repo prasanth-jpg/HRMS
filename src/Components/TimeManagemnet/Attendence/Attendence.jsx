@@ -7,12 +7,13 @@ import absent from "../../../assets/absent.png"
 import present from "../../../assets/present.png"
 import { useAttendance } from "../../../context/AttendanceContext";
 
-import styles from './Attendence.module.css';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import SideModal from '../SideModal/SideModal';
 import SideModalAttendence from '../SideModalAttendence/SideModalAttendence';
+import SideModalLeave from '../SideModalLeave/SideModalLeave';
 import SideShiftBar from '../SideShiftBar/SideShiftBar';
-import AddGoals from '../AddGoals/AddGoals';
+
+import styles from './Attendence.module.css';
 
 const events = {
     "2025-10-02": [
@@ -68,6 +69,9 @@ export default function Attendence() {
     const [isOpen, setIsOpen] = useState(false)
     const [isOpenAtt, setIsOpenAtt] = useState(false)
     const [isOpenShift, setIsOpenShift] = useState(false)
+    const [isOpenLeave, setIsOpenLeave] = useState(false)
+    const attendenceRef = useRef(null);
+
     const { attendance } = useAttendance();
 
     const monthStart = new Date(
@@ -91,8 +95,6 @@ export default function Attendence() {
         days.push(new Date(day))
         day.setDate(day.getDate() + 1)
     }
-    console.log("d.getDate() sss", days)
-
 
     const nextMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1))
     const prevMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1))
@@ -118,21 +120,32 @@ export default function Attendence() {
         }
     };
 
-
-
+      useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (attendenceRef.current && !attendenceRef.current.contains(event.target)) {
+            setOpenSelect(false);
+          }
+        };
+        if (openSelect) {
+          document.addEventListener("mousedown", handleClickOutside);
+        }
+        return () => {
+          document.removeEventListener("mousedown", handleClickOutside);
+        };
+      }, [openSelect]);
     return (
         <div className={styles.leaveHeaderTabdiv}>
             <div className={styles.leaveHeaderTab}>
                 <div>Attendence</div>
-                <div className={styles.leavebtnselect}>
+                <div className={styles.leavebtnselect}  ref={attendenceRef}>
                     <Button variant="contained" onClick={() => { setOpenSelect((prev) => !prev) }}>+ Request &#136;</Button>
                     {openSelect && <div className={styles.btnselect}>
                         <p onClick={() => setIsOpenAtt(true)}>Attendence Adjustment</p>
-                        <p>Clockin</p>
+                        <p onClick={()=>alert("Clock in request has Sent")}>Clockin</p>
                         <p onClick={() => setIsOpenShift(true)}>Shift Change</p>
                         <p onClick={() => setIsOpen(true)}>Work from home</p>
                         <div className={styles.attendenceDiver}></div>
-                        <p>Leave</p>
+                        <p onClick={() => setIsOpenLeave(true)}>Leave</p>
                     </div>
                     }
                 </div>
@@ -226,7 +239,8 @@ export default function Attendence() {
             </SideModalAttendence>
             <SideShiftBar isOpen={isOpenShift} onClose={() => setIsOpenShift(false)} title="Attendence Adjustment">
             </SideShiftBar>
-
+            <SideModalLeave isOpen={isOpenLeave} onClose={() => setIsOpenLeave(false)} title="Attendence Adjustment">
+            </SideModalLeave>
         </div>
     )
 }
