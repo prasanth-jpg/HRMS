@@ -80,14 +80,11 @@ export default function OverallRemark() {
                     </Button>
                 </div>
             </div>
-<<<<<<< Updated upstream
             {/* <div className={styles.qnes}>Questions</div>
             <div className={styles.meDiver}></div>
             <div className={styles.addYourown}>
                 <Button variant='outlined'>+ Add your own question</Button>
             </div> */}
-=======
->>>>>>> Stashed changes
         </div>
     )
 }
