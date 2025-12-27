@@ -105,6 +105,7 @@
   padding: 8px 14px;
   border-radius: 6px;
   cursor: pointer;
+  width: 50%;
 }
 .addBtn:hover {
   background-color: #f3f4f6;
@@ -145,7 +146,51 @@
 .submitBtn:hover {
   background-color: #6d28d9;
 }
+.goalsCard {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
 
+.goalsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+}
+
+.checkboxItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 4px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.checkboxItem:hover {
+  background-color: #f9fafb;
+}
+
+.checkboxItem input {
+  cursor: pointer;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 20px 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+.checkboxList {
+  margin-top: 12px;
+}
+.main {
+  overflow-y: auto;
+}
 @media screen and (max-width: 720px) {
   .container {
     display: flex;

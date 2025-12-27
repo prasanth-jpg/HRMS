@@ -174,7 +174,7 @@ const NavBar = ({ qrlocation }) => {
               </div>
 
               <div className={styles.profileIconnotifi} onClick={handleNoti}>
-                <img src={notif} />
+                <img src={notif}  className={Style.logonoti}/>
                 <span className={styles.noticount}>6</span>
               </div>
 

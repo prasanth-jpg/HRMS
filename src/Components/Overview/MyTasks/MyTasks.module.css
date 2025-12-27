@@ -16,6 +16,7 @@
 .MyTasksbuttons {
   display: flex;
   gap: 20px;
+  height: 42px;
 }
 .MyTasks .Conatiner {
   display: flex;

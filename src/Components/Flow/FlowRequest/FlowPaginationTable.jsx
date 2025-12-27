@@ -173,7 +173,7 @@ const FlowPaginationTable = ({
 
                     <td>{row.reviewCycleName}</td>
                     <td>{masked ? "****" : row.completedDate}</td>
-                    <td>
+                    <td className={styles.eyeicon}>
                       {masked ? "****" : row.goalsOverallRating}
                       {row.goalsOverallRating !== "--" && !masked && (
                         <InfoOutlined fontSize="small" />

@@ -4,7 +4,6 @@ import summaryempty from "../../../assets/summaryempty.png";
 import RequestFeedBack from "../KeyResults/RequestFeedBack/RequestFeedBack";
 import ReqModal from "../KeyResults/RequestFeedBack/ReqModal/ReqModal";
 
-// NEW: separate tab components
 import ResponsesTab from "./ResponsesTab";
 import ContributionsTab from "./ContributionsTab";
 
@@ -19,9 +18,7 @@ const FeedbackPage = () => {
   const [showRF, setShowRF] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  // NEW: which tab is active
-  const [activeTab, setActiveTab] = useState("summary"); // "summary" | "responses" | "contributions"
-
+  const [activeTab, setActiveTab] = useState("summary");
   return (
     <div className={styles.container}>
       {showRF ? (
@@ -31,7 +28,6 @@ const FeedbackPage = () => {
           <header className={styles.header}>
             <h1>Feedback</h1>
 
-            {/* Tabs */}
             <div className={styles.tabs}>
               <span
                 className={activeTab === "summary" ? styles.active : ""}

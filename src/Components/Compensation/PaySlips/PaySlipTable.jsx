@@ -96,7 +96,7 @@ const rows = [
       renderCell: (params) => {
         const row = params.row;
         return (
-          <div style={{ display: "flex", gap: 10 }}>
+          <div style={{ display: "flex", gap: 10 }} className={styles.viewbtns}>
             <Button
               variant='outlined'
               size="small"

@@ -23,6 +23,14 @@
 .paySlipsYearContainer p{
         font-weight: 600;
 }
+.viewbtns{
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+.viewbtns button{
+    height: 30px;
+}
 @media screen and (max-width: 720px) {
     .paySlipsYear{
         font-size: 12px;

@@ -59,7 +59,7 @@ const ProfilePage = () => {
     <div className={styles.Container}>
       <div className={styles.Containerprofilepage}>
         <div> <h2>Over View</h2></div>
-        <div>
+        <div className={styles.personalbtns}>
           <Button variant='outlined' onClick={handleOpen}>View Personal Details</Button>
           <Button variant='contained' onClick={handleDownloadPDF}>Download</Button>
         </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./RequestFeedBack.module.css";
-import { Switch, FormControlLabel } from "@mui/material";
+import { Switch, FormControlLabel, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import OverallRemark from "../OverallRemark/OverallRemark";
 
@@ -12,7 +12,6 @@ export default function RequestFeedBack() {
 
   const [activeQns, setActiveQns] = useState("Questions");
   const [selected, setSelected] = useState([]);
-  const [tipIndex, setTipIndex] = useState(0);
   const [showValues, setShowValues] = useState(false);
 
   useEffect(() => {
@@ -20,8 +19,12 @@ export default function RequestFeedBack() {
   }, []);
 
   const IOSSwitch = styled((props) => (
-    <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
-  ))(({ theme }) => ({
+    <Switch
+      focusVisibleClassName=".Mui-focusVisible"
+      disableRipple
+      {...props}
+    />
+  ))(() => ({
     width: 42,
     height: 26,
     padding: 0,
@@ -32,7 +35,6 @@ export default function RequestFeedBack() {
         color: "#fff",
         "& + .MuiSwitch-track": {
           backgroundColor: "#007bff",
-          opacity: 1,
         },
       },
     },
@@ -43,7 +45,6 @@ export default function RequestFeedBack() {
     "& .MuiSwitch-track": {
       borderRadius: 13,
       backgroundColor: "#d3d6da",
-      opacity: 1,
     },
   }));
 
@@ -56,17 +57,6 @@ export default function RequestFeedBack() {
     "Innovation & Continuous Improvements",
   ];
 
-  const tips = [
-    "Reflect on feedback and align with goals",
-    "Identify growth areas using feedback",
-    "Set actionable improvement goals",
-    "Discuss feedback regularly",
-  ];
-
-  const toggleShowValues = (e) => {
-    setShowValues(e.target.checked);
-  };
-
   const handleSelectAll = () => {
     if (selected.length === goals.length) {
       setSelected([]);
@@ -76,38 +66,15 @@ export default function RequestFeedBack() {
   };
 
   const handleSelect = (goal) => {
-    if (selected.includes(goal)) {
-      setSelected(selected.filter((g) => g !== goal));
-    } else {
-      setSelected([...selected, goal]);
-    }
+    setSelected((prev) =>
+      prev.includes(goal) ? prev.filter((g) => g !== goal) : [...prev, goal]
+    );
   };
+  const handleCancel= ()=>{
+  setSelected("")
+  }
 
-  const handleAddOrUpdate = () => {
-    if (!questionsText.trim()) return;
 
-    if (editIndex !== null) {
-      const updated = [...questions];
-      updated[editIndex] = questionsText;
-      setQuestions(updated);
-      setEditIndex(null);
-    } else {
-      setQuestions([...questions, questionsText]);
-    }
-
-    setQuestionsText("");
-    setQuestionsInput(false);
-  };
-
-  const handleEdit = (index) => {
-    setEditIndex(index);
-    setQuestionsText(questions[index]);
-    setQuestionsInput(true);
-  };
-
-  const handleDelete = (index) => {
-    setQuestions(questions.filter((_, i) => i !== index));
-  };
 
   return (
     <div className={styles.container}>
@@ -138,82 +105,75 @@ export default function RequestFeedBack() {
         >
           Goals / Key Result Areas
         </div>
-
-        <div className={styles.tipBox}>
-          <p>{tips[tipIndex]}</p>
-          <div className={styles.dots}>
-            {tips.map((_, i) => (
-              <span
-                key={i}
-                className={`${styles.dot} ${
-                  i === tipIndex ? styles.activeDot : ""
-                }`}
-                onClick={() => setTipIndex(i)}
-              />
-            ))}
-          </div>
-        </div>
       </aside>
 
       {activeQns === "Questions" && (
         <main className={styles.main}>
-          <h2>Request Feedback</h2>
+          <h2>Questions</h2>
 
-          <section className={styles.section}>
-            <h3>Questions</h3>
+          <Button
+            variant="outlined"
+            className={styles.addBtn}
+            onClick={() => setQuestionsInput(true)}
+          >
+            + Add Question
+          </Button>
+          {/* <div className={styles.qnes}>Questions</div>
+            <div className={styles.meDiver}></div>
+            <div className={styles.addYourown}>
+                <Button variant='outlined'>+ Add your own question</Button>
+            </div> */}
+          {questionsInput && (
+            <div className={styles.addBox}>
+              <input
+                value={questionsText}
+                onChange={(e) => setQuestionsText(e.target.value)}
+                placeholder="Enter your question"
+              />
 
-            <button
-              className={styles.addBtn}
-              onClick={() => {
-                setQuestionsInput(true);
-                setEditIndex(null);
-                setQuestionsText("");
-              }}
-            >
-              + Add your own question
-            </button>
+              <button
+                onClick={() => {
+                  if (!questionsText.trim()) return;
+                  setQuestions([...questions, questionsText]);
+                  setQuestionsText("");
+                  setQuestionsInput(false);
+                }}
+              >
+                Add
+              </button>
+            </div>
+          )}
 
-            {questionsInput && (
-              <div className={styles.addQuestionBox}>
-                <input
-                  type="text"
-                  placeholder="Enter your question"
-                  value={questionsText}
-                  onChange={(e) => setQuestionsText(e.target.value)}
-                />
-                <button onClick={handleAddOrUpdate}>
-                  {editIndex !== null ? "Update" : "Add"}
-                </button>
-              </div>
-            )}
+          <ul className={styles.list}>
+            {questions.map((q, i) => (
+              <li key={i}>{q}</li>
+            ))}
+          </ul>
+        </main>
+      )}
 
-            <ul className={styles.questionList}>
-              {questions.map((q, index) => (
-                <li key={index} className={styles.questionItem}>
-                  <span>{q}</span>
-                  <div>
-                    <button onClick={() => handleEdit(index)}>Edit</button>
-                    <button onClick={() => handleDelete(index)}>Delete</button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </section>
+      {activeQns === "Goals" && (
+        <main className={styles.main}>
+          <h2>Goals / Key Result Areas</h2>
 
-          <section className={styles.section}>
-            <div className={styles.sectionHeader}>
-              <h3>Goals / Key Result Areas</h3>
+          <div className={styles.goalsCard}>
+            <div className={styles.goalsHeader}>
+              <h3>Select Applicable Goals</h3>
+
               <FormControlLabel
                 label="Show Values"
                 labelPlacement="start"
                 control={
-                  <IOSSwitch checked={showValues} onChange={toggleShowValues} />
+                  <IOSSwitch
+                    checked={showValues}
+                    onChange={(e) => setShowValues(e.target.checked)}
+                  />
                 }
               />
             </div>
 
             <div className={styles.checkboxList}>
-              <label>
+              <label className={styles.checkboxItem}>
                 <input
                   type="checkbox"
                   checked={selected.length === goals.length}
@@ -223,21 +183,35 @@ export default function RequestFeedBack() {
               </label>
 
               {goals.map((goal) => (
-                <label key={goal}>
+                <label key={goal} className={styles.checkboxItem}>
                   <input
                     type="checkbox"
                     checked={selected.includes(goal)}
                     onChange={() => handleSelect(goal)}
                   />
-                  {goal}
+                  <span>{goal}</span>
                 </label>
               ))}
             </div>
-          </section>
+
+            {selected.length === 0 && (
+              <div className={styles.emptyState}>
+                <p>No goals selected yet</p>
+                <span>Select goals to include in feedback</span>
+              </div>
+            )}
+          </div>
 
           <div className={styles.actions}>
-            <button className={styles.cancelBtn}>Cancel</button>
-            <button className={styles.submitBtn}>Submit</button>
+            <button className={styles.cancelBtn}  onClick={handleCancel}>Cancel</button>
+            <button
+              className={styles.submitBtn}
+              onClick={() => {
+                alert("saved successfully");
+              }}
+            >
+              Save Goals
+            </button>
           </div>
         </main>
       )}

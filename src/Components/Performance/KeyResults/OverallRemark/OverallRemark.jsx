@@ -36,11 +36,11 @@ export default function OverallRemark() {
                     <div className={`${styles.selectVisibiltyOptn2} ${activeVisi === "onlyMe" ? styles.activeVisibtn : ""}`} onClick={() => setActiveVisi("onlyMe")}>Only Me</div>
                 </div>
             </div>
-            <div className={styles.qnes}>Questions</div>
+            {/* <div className={styles.qnes}>Questions</div>
             <div className={styles.meDiver}></div>
             <div className={styles.addYourown}>
                 <Button variant='outlined'>+ Add your own question</Button>
-            </div>
+            </div> */}
         </div>
        </div>
     )

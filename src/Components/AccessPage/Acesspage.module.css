@@ -216,6 +216,12 @@
 .logobck {
   display: none;
 }
+.logobck2 {
+  padding: 6px;
+}
+.logonoti{
+  font-size: 36px;
+}
 @media (max-width: 1040px) {
   .dashboard {
     align-items: center;
