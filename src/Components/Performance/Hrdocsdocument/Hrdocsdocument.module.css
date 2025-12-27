@@ -9,11 +9,11 @@
 
 .goalReview{
      width: 100%;
-     display: flex
-;
+     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     position: relative;
     gap: 20px;
+    height: 50%;
 }

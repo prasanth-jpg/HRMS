@@ -45,13 +45,11 @@ export const PerformanceTable = ({
   const [showValues, setShowValues] = useState(true);
   const [openFilter, setOpenFilter] = useState(false);
 
-  /** 🔹 Toggle expand */
-  const onToggleExpand = (id) => {
+   const onToggleExpand = (id) => {
     setExpandedMap((p) => ({ ...p, [id]: !p[id] }));
   };
 
-  /** 🔹 Filter + Sort */
-  const filtered = useMemo(() => {
+   const filtered = useMemo(() => {
     return [...data].sort((a, b) => {
       const da = parseDateDMY(a.completedDate);
       const db = parseDateDMY(b.completedDate);
@@ -62,8 +60,7 @@ export const PerformanceTable = ({
   const start = (page - 1) * perPage;
   const pageItems = filtered.slice(start, start + perPage);
 
-  /** 🔹 CSV Download */
-  const downloadCSV = () => {
+   const downloadCSV = () => {
     const headers = Object.keys(data[0]).join(",");
     const rows = data.map((r) =>
       Object.values(r).join(",")
@@ -87,8 +84,7 @@ export const PerformanceTable = ({
         </div>
 
         <div className={styles.topIcons}>
-          {/* 🔹 SORT */}
-          <button
+           <button
             className={styles.iconBtn}
             title="Sort by date"
             onClick={() => setSortAsc((p) => !p)}
@@ -96,8 +92,7 @@ export const PerformanceTable = ({
             <FilterListIcon />
           </button>
 
-          {/* 🔹 FILTER MODAL */}
-          <button
+           <button
             className={styles.iconBtn}
             title="Open filters"
             onClick={() => setOpenFilter(true)}
@@ -105,8 +100,7 @@ export const PerformanceTable = ({
             <SettingsIcon />
           </button>
 
-          {/* 🔹 SHOW / HIDE */}
-          <button
+           <button
             className={styles.iconBtn}
             title="Show / Hide values"
             onClick={() => setShowValues((p) => !p)}
@@ -114,8 +108,7 @@ export const PerformanceTable = ({
             {showValues ? <VisibilityIcon /> : <VisibilityOffIcon />}
           </button>
 
-          {/* 🔹 DOWNLOAD */}
-          <button
+           <button
             className={styles.iconBtn}
             title="Download CSV"
             onClick={downloadCSV}
@@ -178,8 +171,7 @@ export const PerformanceTable = ({
         </tbody>
       </table>
 
-      {/* 🔹 SIMPLE FILTER MODAL */}
-      {openFilter && (
+       {openFilter && (
         <div className={styles.modalOverlay}>
           <div className={styles.modal}>
             <h3>Filters</h3>
