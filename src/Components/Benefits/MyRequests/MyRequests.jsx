@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./MyRequests.module.css";
 import searchimg from "../../../assets/searchimg.png";
 
 export default function MyRequests() {
+    const [benifits, setBenifits] = useState([])
+  
+    const fetchdata = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/MyRequests/MyRequestsGet`);
+        const data = await res.json();
+        setBenifits(data || null);
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  
+    useEffect(() => {
+      fetchdata()
+    }, [])
   return (
     <div className={styles.MyRequestsContainerdiv}>
       <div className={styles.MyRequestsContainer}>
@@ -44,6 +59,22 @@ export default function MyRequests() {
               <th>Current</th>
             </tr>
           </thead>
+          <tbody>
+          {benifits.map((items) => (
+
+            <tr>
+              <td>{items.ExpenseDate}</td>
+              <td>{items.ClaimDate}</td>
+              <td>{items.InvoiceNumber}</td>
+              <td>{items.ExpenseType}</td>
+                            <td>{items.UserDescription}</td>
+
+              <td>{items.Current}</td>
+
+             </tr>
+          ))}
+
+        </tbody>
         </table>
       </div>
 

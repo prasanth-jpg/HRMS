@@ -53,7 +53,6 @@
 .tableExpense {
   display: flex;
   flex-direction: column;
-  background-color: rgb(240, 238, 238);
   border-radius: 2px;
   padding: 10px;
 }
